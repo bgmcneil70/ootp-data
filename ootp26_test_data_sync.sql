@@ -1,12 +1,6 @@
 -- Import all of the data from SOM CSV files
-truncate ootp.cities;
-\copy ootp.cities FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/cities.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
-
 truncate ootp.coaches;
 \copy ootp.coaches FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/coaches.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
-
-truncate ootp.continents;
-\copy ootp.continents FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/continents.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 truncate ootp.divisions;
 \copy ootp.divisions FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/divisions.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -17,32 +11,17 @@ truncate ootp.games;
 truncate ootp.games_score;
 \copy ootp.games_score FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/games_score.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
-truncate ootp.human_manager_history;
-\copy ootp.human_manager_history FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/human_manager_history.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
-
 truncate ootp.human_manager_history_batting_stats;
 \copy ootp.human_manager_history_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/human_manager_history_batting_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 truncate ootp.human_manager_history_fielding_stats;
 \copy ootp.human_manager_history_fielding_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/human_manager_history_fielding_stats_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
-truncate ootp.human_manager_history_financials;
-\copy ootp.human_manager_history_financials FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/human_manager_history_financials.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
-
 truncate ootp.human_manager_history_pitching_stats;
 \copy ootp.human_manager_history_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/human_manager_history_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 truncate ootp.human_manager_history_record;
 \copy ootp.human_manager_history_record FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/human_manager_history_record.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
-
-truncate ootp.human_managers;
-\copy ootp.human_managers FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/human_managers.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
-
-truncate ootp.language_data;
-\copy ootp.language_data FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/language_data.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
-
-truncate ootp.languages;
-\copy ootp.languages FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/languages.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 truncate ootp.league_events;
 \copy ootp.league_events FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/league_events.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -68,14 +47,8 @@ truncate ootp.league_playoff_fixtures;
 truncate ootp.league_playoffs;
 \copy ootp.league_playoffs FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/league_playoffs.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
-truncate ootp.leagues;
-\copy ootp.leagues FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/leagues.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
-
 truncate ootp.messages;
 \copy ootp.messages FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/messages.csv';
-
-truncate ootp.nations;
-\copy ootp.nations FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/nations.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 truncate ootp.parks;
 \copy ootp.parks FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/parks.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -139,9 +112,6 @@ truncate ootp.players_value;
 
 truncate ootp.projected_starting_pitchers;
 \copy ootp.projected_starting_pitchers FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/projected_starting_pitchers.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
-
-truncate ootp.states;
-\copy ootp.states FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/states.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 truncate ootp.sub_leagues;
 \copy ootp.sub_leagues FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/sub_leagues.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -248,8 +218,6 @@ truncate ootp.team_news;
 truncate ootp.team_transactions;
 \copy ootp.team_transactions FROM '/Users/brianmcneil/Documents/Personal/ootp_stuff/ootp_sql/csv/ootp26_migrate/team_transactions.csv' DELIMITER ',' CSV HEADER encoding 'ISO-8859-1';
 
---call geo.pr_import_geo_tables();
---call gm.pr_import_human_manager_tables();
 --call common.pr_import_base_tables();
 --call player.pr_import_player_tables(); -- 8s
 --call volt.pr_import_volt_tables();
