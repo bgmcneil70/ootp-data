@@ -13,6 +13,14 @@
 #sqlite3 -header -csv "/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/temp/text_data.sqlite3" "select * from team_news;" > "/Users/brianmcneil/Documents/Personal/ootp_stuff/ootp_sql/csv/ootp26_migrate/team_news.csv";
 #sqlite3 -header -csv "/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/temp/text_data.sqlite3" "select * from team_transactions;" > "/Users/brianmcneil/Documents/Personal/ootp_stuff/ootp_sql/csv/ootp26_migrate/team_transactions.csv";
 export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin/:$PATH ;
-psql -h localhost -p 5432 -U postgres -d ootp26_migrate -f "/Users/brianmcneil/Documents/Github/ootp-data/sql/import_geo_tables.sql" ;
-psql -h localhost -p 5432 -U postgres -d ootp26_migrate -f "/Users/brianmcneil/Documents/Github/ootp-data/sql/import_base_tables.sql";
-psql -h localhost -p 5432 -U postgres -d ootp26_migrate -f "/Users/brianmcneil/Documents/Github/ootp-data/sql/import_gm_tables.sql";
+#psql -h localhost -p 5432 -U postgres -d ootp26_migrate -f "/Users/brianmcneil/Documents/Github/ootp-data/sql/import_geo_tables.sql" ;
+#psql -h localhost -p 5432 -U postgres -d ootp26_migrate -f "/Users/brianmcneil/Documents/Github/ootp-data/sql/import_base_tables.sql";
+#psql -h localhost -p 5432 -U postgres -d ootp26_migrate -f "/Users/brianmcneil/Documents/Github/ootp-data/sql/import_gm_tables.sql";
+#psql -h localhost -p 5432 -U postgres -d ootp26_migrate -f "/Users/brianmcneil/Documents/Github/ootp-data/sql/import_player_tables.sql";
+psql -h localhost -p 5432 -U postgres -d ootp26_migrate -f "/Users/brianmcneil/Documents/Github/ootp-data/sql/import_league_tables.sql";
+#psql -h localhost -p 5432 -U postgres -d ootp26_migrate -f "/Users/brianmcneil/Documents/Github/ootp-data/sql/import_team_tables.sql";
+#psql -h localhost -p 5432 -U postgres -d ootp26_migrate -f "/Users/brianmcneil/Documents/Github/ootp-data/sql/import_roster_tables.sql";
+#psql -h localhost -p 5432 -U postgres -d ootp26_migrate -f "/Users/brianmcneil/Documents/Github/ootp-data/sql/import_game_tables.sql";
+#psql -h localhost -p 5432 -U postgres -d ootp26_migrate -f "/Users/brianmcneil/Documents/Github/ootp-data/sql/import_draft_tables.sql";
+#psql -h localhost -p 5432 -U postgres -d ootp26_migrate -f "/Users/brianmcneil/Documents/Github/ootp-data/sql/import_stats_tables.sql";
+#psql -h localhost -p 5432 -U postgres -d ootp26_migrate -f "/Users/brianmcneil/Documents/Github/ootp-data/sql/import_player_ratings_tables.sql";
