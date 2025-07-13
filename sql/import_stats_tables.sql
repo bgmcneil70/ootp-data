@@ -1,6 +1,6 @@
 create temporary table leagues
 (
-    league_id                              integer,
+    league_id                              integer PRIMARY KEY,
     name                                   text,
     abbr                                   text,
     nation_id                              integer,
@@ -9,8 +9,8 @@ create temporary table leagues
     historical_league                      integer,
     logo_file_name                         text,
     players_path                           text,
-    start_date                             text,
-    preferred_start_date                   text,
+    start_date                             date,
+    preferred_start_date                   date,
     pitcher_award_name                     text,
     mvp_award_name                         text,
     rookie_award_name                      text,
@@ -22,12 +22,12 @@ create temporary table leagues
     arbitration_offering                   integer,
     show_draft_pool                        integer,
     rosters_expanded                       integer,
-    draft_date                             text,
-    rule_5_draft_date                      text,
-    international_fa_date                  text,
-    roster_expand_date                     text,
-    trade_deadline_date                    text,
-    allstar_date                           text,
+    draft_date                             date,
+    rule_5_draft_date                      date,
+    international_fa_date                  date,
+    roster_expand_date                     date,
+    trade_deadline_date                    date,
+    allstar_date                           date,
     days_until_deadline                    integer,
     next_draft_type                        integer,
     parent_league_id                       integer,
@@ -159,7 +159,7 @@ create temporary table leagues
     player_creation_modifier_fielding      double precision,
     financial_coefficient                  double precision,
     world_start_year                       integer,
-    "current_date"                         text,
+    league_current_date                    date,
     background_color_id                    text,
     text_color_id                          text,
     scouting_coach_id                      integer
@@ -169,7 +169,7 @@ create temporary table leagues
 
 create temporary table teams
 (
-    team_id                     integer,
+    team_id                     integer PRIMARY KEY,
     name                        text,
     abbr                        text,
     nickname                    text,
@@ -202,7 +202,7 @@ create temporary table teams
 
 create temporary table games
 (
-    game_id         integer,
+    game_id         integer PRIMARY KEY,
     league_id       integer,
     home_team       integer,
     away_team       integer,
@@ -270,7 +270,9 @@ create temporary table human_manager_history_batting_stats
     tavg             double precision,
     woba             double precision,
     ops              double precision,
-    sbp              double precision
+    sbp              double precision,
+    PRIMARY KEY (human_manager_id, team_id, year, league_id, sub_league_id, division_id, level_id, split_id)
+
 );
 
 \copy human_manager_history_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/human_manager_history_batting_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -322,7 +324,8 @@ create temporary table players_individual_batting_stats
     opponent_id integer,
     ab          integer,
     h           integer,
-    hr          integer
+    hr          integer,
+    PRIMARY KEY (player_id, opponent_id)
 );
 
 \copy players_individual_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_individual_batting_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -383,7 +386,8 @@ create temporary table team_batting_stats
     iso          double precision,
     woba         double precision,
     ops          double precision,
-    sbp          double precision
+    sbp          double precision,
+    PRIMARY KEY (team_id, year, league_id, level_id, split_id)
 );
 
 \copy team_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_batting_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -494,7 +498,8 @@ create temporary table team_history_batting_stats
     iso           double precision,
     woba          double precision,
     ops           double precision,
-    sbp           double precision
+    sbp           double precision,
+    PRIMARY KEY (team_id, year, league_id, level_id, split_id)
 );
 
 \copy team_history_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_history_batting_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -781,7 +786,8 @@ create temporary table human_manager_history_fielding_stats
     pct              double precision,
     range            double precision,
     rtop             double precision,
-    cera             double precision
+    cera             double precision,
+    PRIMARY KEY (human_manager_id, team_id, year, league_id, level_id, split_id)
 );
 
 \copy human_manager_history_fielding_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/human_manager_history_fielding_stats_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -861,7 +867,8 @@ create temporary table team_fielding_stats
     pct       double precision,
     range     double precision,
     rtop      double precision,
-    cera      double precision
+    cera      double precision,
+    PRIMARY KEY (team_id, year, league_id, level_id, split_id, position)
 );
 
 \copy team_fielding_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_fielding_stats_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -938,7 +945,8 @@ create temporary table team_history_fielding_stats
     pct           double precision,
     range         double precision,
     rtop          double precision,
-    cera          double precision
+    cera          double precision,
+    PRIMARY KEY (team_id, year, league_id, level_id, split_id, position)
 );
 
 \copy team_history_fielding_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_history_fielding_stats_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -1181,7 +1189,8 @@ create temporary table human_manager_history_pitching_stats
     whip             double precision,
     gbfbp            double precision,
     kbb              double precision,
-    babip            double precision
+    babip            double precision, 
+    PRIMARY KEY (human_manager_id, team_id, year, league_id, level_id, split_id)
 );
 
 \copy human_manager_history_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/human_manager_history_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -1359,7 +1368,8 @@ create temporary table team_bullpen_pitching_stats
     whip      double precision,
     gbfbp     double precision,
     kbb       double precision,
-    babip     double precision
+    babip     double precision,
+    PRIMARY KEY (team_id, year, league_id, level_id, split_id)
 );
 
 \copy team_bullpen_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_bullpen_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -1539,7 +1549,8 @@ create temporary table team_history_pitching_stats
     whip          double precision,
     gbfbp         double precision,
     kbb           double precision,
-    babip         double precision
+    babip         double precision,
+    PRIMARY KEY (team_id, year, league_id, level_id, split_id)
 );
 
 \copy team_history_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_history_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -1720,7 +1731,8 @@ create temporary table team_pitching_stats
     whip      double precision,
     gbfbp     double precision,
     kbb       double precision,
-    babip     double precision
+    babip     double precision,
+    PRIMARY KEY (team_id, year, league_id, level_id, split_id)
 );
 
 \copy team_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -1898,7 +1910,8 @@ create temporary table team_starting_pitching_stats
     whip      double precision,
     gbfbp     double precision,
     kbb       double precision,
-    babip     double precision
+    babip     double precision,
+    PRIMARY KEY (team_id, year, league_id, level_id, split_id)
 );
 
 \copy team_starting_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_starting_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -2197,7 +2210,8 @@ create temporary table human_manager_history_record
     pct              double precision,
     gb               double precision,
     streak           integer,
-    magic_number     integer
+    magic_number     integer, 
+    PRIMARY KEY (human_manager_id, team_id, year, league_id)
 );
 
 \copy human_manager_history_record FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/human_manager_history_record.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -2245,7 +2259,8 @@ create temporary table players_league_leader
     year          integer,
     category      integer,
     place         integer,
-    amount        double precision
+    amount        double precision, 
+    PRIMARY KEY (player_id, league_id, sub_league_id, year, category, place)
 );
 
 \copy players_league_leader FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_league_leader.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -2274,7 +2289,8 @@ create temporary table team_history_record
     pct           double precision,
     gb            double precision,
     streak        integer,
-    magic_number  integer
+    magic_number  integer,
+    PRIMARY KEY (team_id, year)
 );
 
 \copy team_history_record FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_history_record.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -2303,7 +2319,7 @@ ON CONFLICT (team_id,season) DO UPDATE
 
 create temporary table team_record
 (
-    team_id      integer,
+    team_id      integer PRIMARY KEY,
     g            integer,
     w            integer,
     l            integer,
@@ -2508,7 +2524,8 @@ create temporary table players_game_pitching_stats
     stint     integer,
     outs      integer,
     sd        integer,
-    md        integer
+    md        integer,
+    PRIMARY KEY (player_id, game_id)
 );
 
 \copy players_game_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_game_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';

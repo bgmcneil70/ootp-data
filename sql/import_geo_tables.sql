@@ -1,6 +1,6 @@
 create temporary table languages
 (
-    language_id integer,
+    language_id integer  PRIMARY KEY,
     name        text
 );
 
@@ -15,7 +15,7 @@ SET name_text = excluded.name_text,
 
 create temporary table continents
 (
-    continent_id     integer,
+    continent_id     integer PRIMARY KEY,
     name             text,
     abbreviation     text,
     demonym          text,
@@ -40,7 +40,7 @@ ON CONFLICT (continent_id) DO UPDATE
 
 create temporary table nations
 (
-    nation_id                       integer,
+    nation_id                       integer PRIMARY KEY,
     name                            text,
     short_name                      text,
     abbreviation                    text,
@@ -86,7 +86,8 @@ create temporary table language_data
     parent_table integer,
     parent_id    integer,
     language_id  integer,
-    percentage   integer
+    percentage   integer,
+    PRIMARY KEY (parent_table, parent_id, language_id)
 );
 
 \copy language_data FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/language_data.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -105,7 +106,7 @@ ON CONFLICT (parent_table,nation_id,language_id) DO UPDATE
 
 create temporary table states
 (
-    state_id         integer,
+    state_id         integer PRIMARY KEY,
     nation_id        integer,
     name             text,
     abbreviation     text,
@@ -133,7 +134,7 @@ ON CONFLICT (state_id) DO UPDATE
 
 create temporary table cities
 (
-    city_id          integer,
+    city_id          integer PRIMARY KEY,
     nation_id        integer,
     state_id         integer,
     name             text,

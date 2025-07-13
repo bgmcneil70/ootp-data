@@ -1,6 +1,6 @@
 create temporary table leagues
 (
-    league_id                              integer,
+    league_id                              integer PRIMARY KEY,
     name                                   text,
     abbr                                   text,
     nation_id                              integer,
@@ -9,8 +9,8 @@ create temporary table leagues
     historical_league                      integer,
     logo_file_name                         text,
     players_path                           text,
-    start_date                             text,
-    preferred_start_date                   text,
+    start_date                             date,
+    preferred_start_date                   date,
     pitcher_award_name                     text,
     mvp_award_name                         text,
     rookie_award_name                      text,
@@ -22,12 +22,12 @@ create temporary table leagues
     arbitration_offering                   integer,
     show_draft_pool                        integer,
     rosters_expanded                       integer,
-    draft_date                             text,
-    rule_5_draft_date                      text,
-    international_fa_date                  text,
-    roster_expand_date                     text,
-    trade_deadline_date                    text,
-    allstar_date                           text,
+    draft_date                             date,
+    rule_5_draft_date                      date,
+    international_fa_date                  date,
+    roster_expand_date                     date,
+    trade_deadline_date                    date,
+    allstar_date                           date,
     days_until_deadline                    integer,
     next_draft_type                        integer,
     parent_league_id                       integer,
@@ -159,7 +159,7 @@ create temporary table leagues
     player_creation_modifier_fielding      double precision,
     financial_coefficient                  double precision,
     world_start_year                       integer,
-    "current_date"                         text,
+    league_current_date                    date,
     background_color_id                    text,
     text_color_id                          text,
     scouting_coach_id                      integer
@@ -169,7 +169,7 @@ create temporary table leagues
 
 create temporary table teams
 (
-    team_id                     integer,
+    team_id                     integer PRIMARY KEY,
     name                        text,
     abbr                        text,
     nickname                    text,
@@ -202,7 +202,7 @@ create temporary table teams
 
 create temporary table games
 (
-    game_id         integer,
+    game_id         integer PRIMARY KEY,
     league_id       integer,
     home_team       integer,
     away_team       integer,
@@ -334,7 +334,8 @@ create temporary table games_score
     game_id integer,
     team    integer,
     inning  integer,
-    score   integer
+    score   integer,
+    PRIMARY KEY (game_id, team, inning)
 );
 
 \copy games_score FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/games_score.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -357,7 +358,7 @@ SET g_score = EXCLUDED.g_score
 
 create temporary table projected_starting_pitchers
 (
-    team_id   integer,
+    team_id   integer PRIMARY KEY,
     starter_0 integer,
     starter_1 integer,
     starter_2 integer,

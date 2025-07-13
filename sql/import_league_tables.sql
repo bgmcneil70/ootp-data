@@ -1,6 +1,6 @@
 create temporary table leagues
 (
-    league_id                              integer,
+    league_id                              integer PRIMARY KEY,
     name                                   text,
     abbr                                   text,
     nation_id                              integer,
@@ -9,8 +9,8 @@ create temporary table leagues
     historical_league                      integer,
     logo_file_name                         text,
     players_path                           text,
-    start_date                             text,
-    preferred_start_date                   text,
+    start_date                             date,
+    preferred_start_date                   date,
     pitcher_award_name                     text,
     mvp_award_name                         text,
     rookie_award_name                      text,
@@ -22,12 +22,12 @@ create temporary table leagues
     arbitration_offering                   integer,
     show_draft_pool                        integer,
     rosters_expanded                       integer,
-    draft_date                             text,
-    rule_5_draft_date                      text,
-    international_fa_date                  text,
-    roster_expand_date                     text,
-    trade_deadline_date                    text,
-    allstar_date                           text,
+    draft_date                             date,
+    rule_5_draft_date                      date,
+    international_fa_date                  date,
+    roster_expand_date                     date,
+    trade_deadline_date                    date,
+    allstar_date                           date,
     days_until_deadline                    integer,
     next_draft_type                        integer,
     parent_league_id                       integer,
@@ -159,70 +159,13 @@ create temporary table leagues
     player_creation_modifier_fielding      double precision,
     financial_coefficient                  double precision,
     world_start_year                       integer,
-    "current_date"                         text,
+    league_current_date                    date,
     background_color_id                    text,
     text_color_id                          text,
     scouting_coach_id                      integer
 );
 
 \copy leagues FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/leagues.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
-
-/*create temporary table teams
-(
-    team_id                     integer,
-    name                        text,
-    abbr                        text,
-    nickname                    text,
-    logo_file_name              text,
-    city_id                     integer,
-    park_id                     integer,
-    league_id                   integer,
-    sub_league_id               integer,
-    division_id                 integer,
-    nation_id                   integer,
-    parent_team_id              integer,
-    level                       integer,
-    prevent_any_moves           integer,
-    human_team                  integer,
-    human_id                    integer,
-    gender                      integer,
-    background_color_id         text,
-    text_color_id               text,
-    ballcaps_main_color_id      text,
-    ballcaps_visor_color_id     text,
-    jersey_main_color_id        text,
-    jersey_away_color_id        text,
-    jersey_secondary_color_id   text,
-    jersey_pin_stripes_color_id text,
-    allstar_team                integer,
-    historical_id               text
-);
-
-\copy teams FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/teams.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
-
-
-create temporary table divisions
-(
-    league_id     integer,
-    sub_league_id integer,
-    division_id   integer,
-    name          text,
-    gender        integer
-);
-
-\copy divisions FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/divisions.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
-
-create temporary table sub_leagues
-(
-    league_id         integer,
-    sub_league_id     integer,
-    name              text,
-    abbr              text,
-    gender            integer,
-    designated_hitter integer
-);
-
-\copy sub_leagues FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/sub_leagues.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 create temporary table league_events
 (
@@ -233,11 +176,8 @@ create temporary table league_events
     deleted            integer,
     name               text,
     needs_human_action integer,
-    real_sim_date      text
+    real_sim_date      integer
 );
-*/
-alter table league_events
-    owner to postgres;
 
 \copy league_events FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/league_events.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
@@ -271,7 +211,7 @@ ON CONFLICT (league_id, start_date, event_type_id) DO UPDATE
 
 create temporary table league_playoffs
 (
-    league_id                integer,
+    league_id                integer PRIMARY KEY,
     play_off_mode            integer,
     round                    integer,
     max_round                integer,
@@ -535,7 +475,8 @@ create temporary table league_history
     best_fielder_id6 integer,
     best_fielder_id7 integer,
     best_fielder_id8 integer,
-    best_fielder_id9 integer
+    best_fielder_id9 integer,
+    PRIMARY KEY (league_id, sub_league_id, year)
 );
 
 \copy league_history FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/league_history.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -572,7 +513,6 @@ ON CONFLICT (league_id, sub_league_id, season) DO UPDATE
         modified_by = CURRENT_USER,
         modified_ts = now()
     ;
-
 
 create temporary table league_injuries
 (
@@ -790,7 +730,8 @@ create temp table league_history_all_star
     sub_league_id integer,
     year          integer,
     all_star_pos  integer,
-    all_star      integer
+    all_star      integer,
+    PRIMARY KEY (league_id, sub_league_id, year, all_star_pos)
 );
 
 \copy league_history_all_star FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/league_history_all_star.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';

@@ -1,6 +1,6 @@
 create temporary table leagues
 (
-    league_id                              integer,
+    league_id                              integer PRIMARY KEY,
     name                                   text,
     abbr                                   text,
     nation_id                              integer,
@@ -9,8 +9,8 @@ create temporary table leagues
     historical_league                      integer,
     logo_file_name                         text,
     players_path                           text,
-    start_date                             text,
-    preferred_start_date                   text,
+    start_date                             date,
+    preferred_start_date                   date,
     pitcher_award_name                     text,
     mvp_award_name                         text,
     rookie_award_name                      text,
@@ -22,12 +22,12 @@ create temporary table leagues
     arbitration_offering                   integer,
     show_draft_pool                        integer,
     rosters_expanded                       integer,
-    draft_date                             text,
-    rule_5_draft_date                      text,
-    international_fa_date                  text,
-    roster_expand_date                     text,
-    trade_deadline_date                    text,
-    allstar_date                           text,
+    draft_date                             date,
+    rule_5_draft_date                      date,
+    international_fa_date                  date,
+    roster_expand_date                     date,
+    trade_deadline_date                    date,
+    allstar_date                           date,
     days_until_deadline                    integer,
     next_draft_type                        integer,
     parent_league_id                       integer,
@@ -159,7 +159,7 @@ create temporary table leagues
     player_creation_modifier_fielding      double precision,
     financial_coefficient                  double precision,
     world_start_year                       integer,
-    "current_date"                         text,
+    league_current_date                    date,
     background_color_id                    text,
     text_color_id                          text,
     scouting_coach_id                      integer
@@ -169,7 +169,7 @@ create temporary table leagues
 
 create temporary table teams
 (
-    team_id                     integer,
+    team_id                     integer PRIMARY KEY,
     name                        text,
     abbr                        text,
     nickname                    text,
@@ -202,7 +202,7 @@ create temporary table teams
 
 create temporary table coaches
 (
-    coach_id                    integer,
+    coach_id                    integer PRIMARY KEY,
     first_name                  text,
     last_name                   text,
     nick_name                   text,
@@ -311,7 +311,7 @@ SELECT
     daterange(cd.cdate,null,'[)') as duration,
     UNNEST(ARRAY['scout_major', 'scout_minor', 'scout_international', 'scout_amateur', 'teach_hitting', 'teach_pitching', 'teach_c', 'teach_if', 'teach_of', 'handle_veterans', 'handle_rookies', 'handle_players', 'heal_legs', 'heal_arms', 'heal_back', 'heal_other', 'heal_rest', 'teach_running', 'prevent_legs', 'prevent_arms', 'prevent_back', 'prevent_other', 'stealing', 'running', 'pinch_run', 'pinch_hit_pos', 'pinch_hit_pitch', 'hook_start', 'hook_relief', 'closer', 'lr_match_up', 'bunt_hit', 'bunt', 'hit_run', 'run_hit', 'squeeze', 'pitch_around', 'intentional_walk', 'hold_runner', 'guard_lines', 'infield_in', 'outfield_in', 'corners_in', 'shift_if', 'shift_of', 'opener', 'num_pitchers', 'num_hitters', 'favor_speed_to_power', 'favor_avg_to_obp', 'favor_defense_to_offense', 'favor_pitching_to_hitting', 'favor_veterans_to_prospects', 'trade_aggressiveness', 'player_loyalty', 'trade_frequency', 'trade_preference', 'value_stats', 'value_this_season', 'value_last_season', 'value_two_seasons', 'draft_value', 'international_fa_value', 'develop_value', 'ratings_value', 'manager_value', 'pitching_coach_value', 'hitting_coach_value', 'scout_value', 'doctor_value', 'base_coach_value']) as coach_rating_code,
     UNNEST(ARRAY[scout_major, scout_minor, scout_international, scout_amateur, teach_hitting, teach_pitching, teach_c, teach_if, teach_of, handle_veterans, handle_rookies, handle_players, heal_legs, heal_arms, heal_back, heal_other, heal_rest, teach_running, prevent_legs, prevent_arms, prevent_back, prevent_other, stealing, running, c.pinchrun, c.pinchhit_pos, c.pinchhit_pitch, hook_start, hook_relief, closer, c.lr_matchup, bunt_hit, bunt, hit_run, run_hit, squeeze, pitch_around, intentional_walk, hold_runner, guard_lines, infield_in, outfield_in, corners_in, shift_if, shift_of, opener, num_pitchers, num_hitters, favor_speed_to_power, favor_avg_to_obp, favor_defense_to_offense, favor_pitching_to_hitting, favor_veterans_to_prospects, trade_aggressiveness, player_loyalty, trade_frequency, trade_preference, value_stats, c.value_this_year, c.value_last_year, c.value_two_years, draft_value, c.intl_fa_value, develop_value, ratings_value, manager_value, pitching_coach_value, hitting_coach_value, scout_value, doctor_value, c.basecoach_value]) as rating_value
-FROM coaches c, (SELECT l."current_date"::date as cdate FROM leagues l LIMIT 1) cd
+FROM coaches c, (SELECT l.league_current_date as cdate FROM leagues l LIMIT 1) cd
 WHERE c.coach_id IN (SELECT player_id FROM player.player where retired_status IS FALSE)
 ),
 c as (
@@ -339,7 +339,7 @@ SELECT
     daterange(cd.cdate,null,'[)') as duration,
     UNNEST(ARRAY['scout_major', 'scout_minor', 'scout_international', 'scout_amateur', 'teach_hitting', 'teach_pitching', 'teach_c', 'teach_if', 'teach_of', 'handle_veterans', 'handle_rookies', 'handle_players', 'heal_legs', 'heal_arms', 'heal_back', 'heal_other', 'heal_rest', 'teach_running', 'prevent_legs', 'prevent_arms', 'prevent_back', 'prevent_other', 'stealing', 'running', 'pinch_run', 'pinch_hit_pos', 'pinch_hit_pitch', 'hook_start', 'hook_relief', 'closer', 'lr_match_up', 'bunt_hit', 'bunt', 'hit_run', 'run_hit', 'squeeze', 'pitch_around', 'intentional_walk', 'hold_runner', 'guard_lines', 'infield_in', 'outfield_in', 'corners_in', 'shift_if', 'shift_of', 'opener', 'num_pitchers', 'num_hitters', 'favor_speed_to_power', 'favor_avg_to_obp', 'favor_defense_to_offense', 'favor_pitching_to_hitting', 'favor_veterans_to_prospects', 'trade_aggressiveness', 'player_loyalty', 'trade_frequency', 'trade_preference', 'value_stats', 'value_this_season', 'value_last_season', 'value_two_seasons', 'draft_value', 'international_fa_value', 'develop_value', 'ratings_value', 'manager_value', 'pitching_coach_value', 'hitting_coach_value', 'scout_value', 'doctor_value', 'base_coach_value']) as coach_rating_code,
     UNNEST(ARRAY[scout_major, scout_minor, scout_international, scout_amateur, teach_hitting, teach_pitching, teach_c, teach_if, teach_of, handle_veterans, handle_rookies, handle_players, heal_legs, heal_arms, heal_back, heal_other, heal_rest, teach_running, prevent_legs, prevent_arms, prevent_back, prevent_other, stealing, running, c.pinchrun, c.pinchhit_pos, c.pinchhit_pitch, hook_start, hook_relief, closer, c.lr_matchup, bunt_hit, bunt, hit_run, run_hit, squeeze, pitch_around, intentional_walk, hold_runner, guard_lines, infield_in, outfield_in, corners_in, shift_if, shift_of, opener, num_pitchers, num_hitters, favor_speed_to_power, favor_avg_to_obp, favor_defense_to_offense, favor_pitching_to_hitting, favor_veterans_to_prospects, trade_aggressiveness, player_loyalty, trade_frequency, trade_preference, value_stats, c.value_this_year, c.value_last_year, c.value_two_years, draft_value, c.intl_fa_value, develop_value, ratings_value, manager_value, pitching_coach_value, hitting_coach_value, scout_value, doctor_value, c.basecoach_value]) as rating_value
-FROM coaches c, (SELECT l."current_date"::date as cdate FROM leagues l LIMIT 1) cd
+FROM coaches c, (SELECT l.league_current_date as cdate FROM leagues l LIMIT 1) cd
 WHERE c.coach_id IN (SELECT player_id FROM player.player where retired_status IS FALSE)
 ),
 c as (
@@ -367,7 +367,7 @@ WHERE duration = '{}'
 
 create temporary table players
 (
-    player_id                   integer,
+    player_id                   integer PRIMARY KEY,
     team_id                     integer,
     league_id                   integer,
     position                    integer,
@@ -436,7 +436,7 @@ create temporary table players
     fatigue_played_today        integer,
     college                     integer,
     acquired                    integer,
-    acquired_date               text,
+    acquired_date               date,
     draft_year                  integer,
     draft_round                 integer,
     draft_supplemental          integer,
@@ -494,7 +494,7 @@ SELECT
     daterange(cd.cdate,null,'[)') as duration,
     UNNEST(ARRAY['personality_greed', 'personality_loyalty', 'personality_play_for_winner', 'personality_work_ethic', 'personality_intelligence', 'personality_leader', 'prone_overall', 'prone_leg', 'prone_back', 'prone_arm']) as rating_code,
     UNNEST(ARRAY[personality_greed, personality_loyalty, personality_play_for_winner, personality_work_ethic, personality_intelligence, personality_leader, prone_overall, prone_leg, prone_back, prone_arm]) as rating_value
-FROM players c, (SELECT l."current_date"::date as cdate FROM leagues l LIMIT 1) cd
+FROM players c, (SELECT l.league_current_date as cdate FROM leagues l LIMIT 1) cd
 WHERE c.player_id IN (SELECT player_id FROM player.player where retired_status IS FALSE)
 ),
 c as (
@@ -522,7 +522,7 @@ SELECT
     daterange(cd.cdate,null,'[)') as duration,
     UNNEST(ARRAY['personality_greed', 'personality_loyalty', 'personality_play_for_winner', 'personality_work_ethic', 'personality_intelligence', 'personality_leader', 'prone_overall', 'prone_leg', 'prone_back', 'prone_arm']) as rating_code,
     UNNEST(ARRAY[personality_greed, personality_loyalty, personality_play_for_winner, personality_work_ethic, personality_intelligence, personality_leader, prone_overall, prone_leg, prone_back, prone_arm]) as rating_value
-FROM players c, (SELECT l."current_date"::date as cdate FROM leagues l LIMIT 1) cd
+FROM players c, (SELECT l.league_current_date as cdate FROM leagues l LIMIT 1) cd
 WHERE c.player_id IN (SELECT player_id FROM player.player where retired_status IS FALSE)
 ),
 c as (
@@ -550,7 +550,7 @@ WHERE duration = '{}'
 
 create temporary table players_batting
 (
-    player_id                           integer,
+    player_id                           integer PRIMARY KEY,
     team_id                             integer,
     league_id                           integer,
     position                            integer,
@@ -603,7 +603,7 @@ SELECT
     daterange(cd.cdate,null,'[)') as duration,
     UNNEST(ARRAY['br_overall_contact', 'br_overall_gap', 'br_overall_eye', 'br_overall_strikeouts', 'br_overall_hp', 'br_overall_power', 'br_overall_babip', 'br_vsr_contact', 'br_vsr_gap', 'br_vsr_eye', 'br_vsr_strikeouts', 'br_vsr_hp', 'br_vsr_power', 'br_vsr_babip', 'br_vsl_contact', 'br_vsl_gap', 'br_vsl_eye', 'br_vsl_strikeouts', 'br_vsl_hp', 'br_vsl_power', 'br_vsl_babip', 'br_talent_contact', 'br_talent_gap', 'br_talent_eye', 'br_talent_strikeouts', 'br_talent_hp', 'br_talent_power', 'br_talent_babip', 'br_misc_bunt', 'br_misc_bunt_for_hit', 'rr_speed', 'rr_stealing_rate', 'rr_stealing', 'rr_base_running']) as rating_code,
     UNNEST(ARRAY[batting_ratings_overall_contact, batting_ratings_overall_gap, batting_ratings_overall_eye, batting_ratings_overall_strikeouts, batting_ratings_overall_hp, batting_ratings_overall_power, batting_ratings_overall_babip, batting_ratings_vsr_contact, batting_ratings_vsr_gap, batting_ratings_vsr_eye, batting_ratings_vsr_strikeouts, batting_ratings_vsr_hp, batting_ratings_vsr_power, batting_ratings_vsr_babip, batting_ratings_vsl_contact, batting_ratings_vsl_gap, batting_ratings_vsl_eye, batting_ratings_vsl_strikeouts, batting_ratings_vsl_hp, batting_ratings_vsl_power, batting_ratings_vsl_babip, batting_ratings_talent_contact, batting_ratings_talent_gap, batting_ratings_talent_eye, batting_ratings_talent_strikeouts, batting_ratings_talent_hp, batting_ratings_talent_power, batting_ratings_talent_babip, batting_ratings_misc_bunt, batting_ratings_misc_bunt_for_hit, running_ratings_speed, running_ratings_stealing_rate, running_ratings_stealing, running_ratings_baserunning]) as rating_value
-FROM players_batting c, (SELECT l."current_date"::date as cdate FROM leagues l LIMIT 1) cd
+FROM players_batting c, (SELECT l.league_current_date as cdate FROM leagues l LIMIT 1) cd
 WHERE c.player_id IN (SELECT player_id FROM player.player where retired_status IS FALSE)
 ),
 c as (
@@ -631,7 +631,7 @@ SELECT
     daterange(cd.cdate,null,'[)') as duration,
     UNNEST(ARRAY['br_overall_contact', 'br_overall_gap', 'br_overall_eye', 'br_overall_strikeouts', 'br_overall_hp', 'br_overall_power', 'br_overall_babip', 'br_vsr_contact', 'br_vsr_gap', 'br_vsr_eye', 'br_vsr_strikeouts', 'br_vsr_hp', 'br_vsr_power', 'br_vsr_babip', 'br_vsl_contact', 'br_vsl_gap', 'br_vsl_eye', 'br_vsl_strikeouts', 'br_vsl_hp', 'br_vsl_power', 'br_vsl_babip', 'br_talent_contact', 'br_talent_gap', 'br_talent_eye', 'br_talent_strikeouts', 'br_talent_hp', 'br_talent_power', 'br_talent_babip', 'br_misc_bunt', 'br_misc_bunt_for_hit', 'rr_speed', 'rr_stealing_rate', 'rr_stealing', 'rr_base_running']) as rating_code,
     UNNEST(ARRAY[batting_ratings_overall_contact, batting_ratings_overall_gap, batting_ratings_overall_eye, batting_ratings_overall_strikeouts, batting_ratings_overall_hp, batting_ratings_overall_power, batting_ratings_overall_babip, batting_ratings_vsr_contact, batting_ratings_vsr_gap, batting_ratings_vsr_eye, batting_ratings_vsr_strikeouts, batting_ratings_vsr_hp, batting_ratings_vsr_power, batting_ratings_vsr_babip, batting_ratings_vsl_contact, batting_ratings_vsl_gap, batting_ratings_vsl_eye, batting_ratings_vsl_strikeouts, batting_ratings_vsl_hp, batting_ratings_vsl_power, batting_ratings_vsl_babip, batting_ratings_talent_contact, batting_ratings_talent_gap, batting_ratings_talent_eye, batting_ratings_talent_strikeouts, batting_ratings_talent_hp, batting_ratings_talent_power, batting_ratings_talent_babip, batting_ratings_misc_bunt, batting_ratings_misc_bunt_for_hit, running_ratings_speed, running_ratings_stealing_rate, running_ratings_stealing, running_ratings_baserunning]) as rating_value
-FROM players_batting c, (SELECT l."current_date"::date as cdate FROM leagues l LIMIT 1) cd
+FROM players_batting c, (SELECT l.league_current_date as cdate FROM leagues l LIMIT 1) cd
 WHERE c.player_id IN (SELECT player_id FROM player.player where retired_status IS FALSE)
 ),
 c as (
@@ -659,7 +659,7 @@ WHERE duration = '{}'
 
 create temporary table players_fielding
 (
-    player_id                        integer,
+    player_id                        integer PRIMARY KEY,
     team_id                          integer,
     league_id                        integer,
     position                         integer,
@@ -713,7 +713,7 @@ SELECT
     daterange(cd.cdate,null,'[)') as duration,
     UNNEST(ARRAY['fr_infield_range', 'fr_infield_arm', 'fr_turn_double_play', 'fr_outfield_range', 'fr_outfield_arm', 'fr_catcher_arm', 'fr_catcher_ability', 'fr_infield_error', 'fr_outfield_error']) as rating_code,
     UNNEST(ARRAY[fielding_ratings_infield_range, fielding_ratings_infield_arm, fielding_ratings_turn_doubleplay, fielding_ratings_outfield_range, fielding_ratings_outfield_arm, fielding_ratings_catcher_arm, fielding_ratings_catcher_ability, fielding_ratings_infield_error, fielding_ratings_outfield_error]) as rating_value
-FROM players_fielding c, (SELECT l."current_date"::date as cdate FROM leagues l LIMIT 1) cd
+FROM players_fielding c, (SELECT l.league_current_date as cdate FROM leagues l LIMIT 1) cd
 WHERE c.player_id IN (SELECT player_id FROM player.player where retired_status IS FALSE)
 ),
 c as (
@@ -742,7 +742,7 @@ SELECT
     daterange(cd.cdate,null,'[)') as duration,
     UNNEST(ARRAY['fr_infield_range', 'fr_infield_arm', 'fr_turn_double_play', 'fr_outfield_range', 'fr_outfield_arm', 'fr_catcher_arm', 'fr_catcher_ability', 'fr_infield_error', 'fr_outfield_error']) as rating_code,
     UNNEST(ARRAY[fielding_ratings_infield_range, fielding_ratings_infield_arm, fielding_ratings_turn_doubleplay, fielding_ratings_outfield_range, fielding_ratings_outfield_arm, fielding_ratings_catcher_arm, fielding_ratings_catcher_ability, fielding_ratings_infield_error, fielding_ratings_outfield_error]) as rating_value
-FROM players_fielding c, (SELECT l."current_date"::date as cdate FROM leagues l LIMIT 1) cd
+FROM players_fielding c, (SELECT l.league_current_date as cdate FROM leagues l LIMIT 1) cd
 WHERE c.player_id IN (SELECT player_id FROM player.player where retired_status IS FALSE)
 ),
 c as (
@@ -774,7 +774,7 @@ SELECT
                 ,'fr_fielding_potential','fr_fielding_potential','fr_fielding_potential','fr_fielding_potential','fr_fielding_potential','fr_fielding_potential','fr_fielding_potential','fr_fielding_potential','fr_fielding_potential']) as rating_code,
     UNNEST(ARRAY[fielding_experience1,fielding_experience2,fielding_experience3,fielding_experience4,fielding_experience5,fielding_experience6,fielding_experience7,fielding_experience8,fielding_experience9,fielding_rating_pos1,fielding_rating_pos2,fielding_rating_pos3,fielding_rating_pos4,fielding_rating_pos5,fielding_rating_pos6,fielding_rating_pos7,fielding_rating_pos8,fielding_rating_pos9,
                  fielding_rating_pos1_pot,fielding_rating_pos2_pot,fielding_rating_pos3_pot,fielding_rating_pos4_pot,fielding_rating_pos5_pot,fielding_rating_pos6_pot,fielding_rating_pos7_pot,fielding_rating_pos8_pot,fielding_rating_pos9_pot]) as rating_value
-FROM players_fielding c, (SELECT l."current_date"::date as cdate FROM leagues l LIMIT 1) cd
+FROM players_fielding c, (SELECT l.league_current_date as cdate FROM leagues l LIMIT 1) cd
 WHERE c.player_id IN (SELECT player_id FROM player.player where retired_status IS FALSE)
 ),
 c as (
@@ -807,7 +807,7 @@ SELECT
                 ,'fr_fielding_potential','fr_fielding_potential','fr_fielding_potential','fr_fielding_potential','fr_fielding_potential','fr_fielding_potential','fr_fielding_potential','fr_fielding_potential','fr_fielding_potential']) as rating_code,
     UNNEST(ARRAY[fielding_experience1,fielding_experience2,fielding_experience3,fielding_experience4,fielding_experience5,fielding_experience6,fielding_experience7,fielding_experience8,fielding_experience9,fielding_rating_pos1,fielding_rating_pos2,fielding_rating_pos3,fielding_rating_pos4,fielding_rating_pos5,fielding_rating_pos6,fielding_rating_pos7,fielding_rating_pos8,fielding_rating_pos9,
                  fielding_rating_pos1_pot,fielding_rating_pos2_pot,fielding_rating_pos3_pot,fielding_rating_pos4_pot,fielding_rating_pos5_pot,fielding_rating_pos6_pot,fielding_rating_pos7_pot,fielding_rating_pos8_pot,fielding_rating_pos9_pot]) as rating_value
-FROM players_fielding c, (SELECT l."current_date"::date as cdate FROM leagues l LIMIT 1) cd
+FROM players_fielding c, (SELECT l.league_current_date as cdate FROM leagues l LIMIT 1) cd
 WHERE c.player_id IN (SELECT player_id FROM player.player where retired_status IS FALSE)
 ),
 c as (
@@ -836,7 +836,7 @@ WHERE duration = '{}'
 
 create temporary table players_pitching
 (
-    player_id                                    integer,
+    player_id                                    integer PRIMARY KEY,
     team_id                                      integer,
     league_id                                    integer,
     position                                     integer,
@@ -914,7 +914,7 @@ SELECT
     daterange(cd.cdate,null,'[)') as duration,
     UNNEST(ARRAY['pr_overall_stuff', 'pr_overall_movement', 'pr_overall_hr_allowed', 'pr_overall_babip', 'pr_overall_control', 'pr_overall_balk', 'pr_overall_hp', 'pr_overall_wild_pitch', 'pr_vsr_stuff', 'pr_vsr_movement', 'pr_vsr_hr_allowed', 'pr_vsr_babip', 'pr_vsr_control', 'pr_vsr_balk', 'pr_vsr_hp', 'pr_vsr_wild_pitch', 'pr_vsl_stuff', 'pr_vsl_movement', 'pr_vsl_hr_allowed', 'pr_vsl_babip', 'pr_vsl_control', 'pr_vsl_balk', 'pr_vsl_hp', 'pr_vsl_wild_pitch', 'pr_talent_stuff', 'pr_talent_movement', 'pr_talent_hr_allowed', 'pr_talent_babip', 'pr_talent_control', 'pr_talent_balk', 'pr_talent_hp', 'pr_talent_wild_pitch', 'velocity_id', 'arm_slot_id', 'pr_misc_stamina', 'pr_misc_ground_fly', 'pr_misc_hold']) as rating_code,
     UNNEST(ARRAY[pitching_ratings_overall_stuff, pitching_ratings_overall_movement, pitching_ratings_overall_hra, pitching_ratings_overall_pbabip, pitching_ratings_overall_control, pitching_ratings_overall_balk, pitching_ratings_overall_hp, pitching_ratings_overall_wild_pitch, pitching_ratings_vsr_stuff, pitching_ratings_vsr_movement, pitching_ratings_vsr_hra, pitching_ratings_vsr_pbabip, pitching_ratings_vsr_control, pitching_ratings_vsr_balk, pitching_ratings_vsr_hp, pitching_ratings_vsr_wild_pitch, pitching_ratings_vsl_stuff, pitching_ratings_vsl_movement, pitching_ratings_vsl_hra, pitching_ratings_vsl_pbabip, pitching_ratings_vsl_control, pitching_ratings_vsl_balk, pitching_ratings_vsl_hp, pitching_ratings_vsl_wild_pitch, pitching_ratings_talent_stuff, pitching_ratings_talent_movement, pitching_ratings_talent_hra, pitching_ratings_talent_pbabip, pitching_ratings_talent_control, pitching_ratings_talent_balk, pitching_ratings_talent_hp, pitching_ratings_talent_wild_pitch, pitching_ratings_misc_velocity, pitching_ratings_misc_arm_slot, pitching_ratings_misc_stamina, pitching_ratings_misc_ground_fly, pitching_ratings_misc_hold]) as rating_value
-FROM players_pitching c, (SELECT l."current_date"::date as cdate FROM leagues l LIMIT 1) cd
+FROM players_pitching c, (SELECT l.league_current_date as cdate FROM leagues l LIMIT 1) cd
 WHERE c.player_id IN (SELECT player_id FROM player.player where retired_status IS FALSE)
 ),
 c as (
@@ -943,7 +943,7 @@ SELECT
     daterange(cd.cdate,null,'[)') as duration,
     UNNEST(ARRAY['pr_overall_stuff', 'pr_overall_movement', 'pr_overall_hr_allowed', 'pr_overall_babip', 'pr_overall_control', 'pr_overall_balk', 'pr_overall_hp', 'pr_overall_wild_pitch', 'pr_vsr_stuff', 'pr_vsr_movement', 'pr_vsr_hr_allowed', 'pr_vsr_babip', 'pr_vsr_control', 'pr_vsr_balk', 'pr_vsr_hp', 'pr_vsr_wild_pitch', 'pr_vsl_stuff', 'pr_vsl_movement', 'pr_vsl_hr_allowed', 'pr_vsl_babip', 'pr_vsl_control', 'pr_vsl_balk', 'pr_vsl_hp', 'pr_vsl_wild_pitch', 'pr_talent_stuff', 'pr_talent_movement', 'pr_talent_hr_allowed', 'pr_talent_babip', 'pr_talent_control', 'pr_talent_balk', 'pr_talent_hp', 'pr_talent_wild_pitch', 'velocity_id', 'arm_slot_id', 'pr_misc_stamina', 'pr_misc_ground_fly', 'pr_misc_hold']) as rating_code,
     UNNEST(ARRAY[pitching_ratings_overall_stuff, pitching_ratings_overall_movement, pitching_ratings_overall_hra, pitching_ratings_overall_pbabip, pitching_ratings_overall_control, pitching_ratings_overall_balk, pitching_ratings_overall_hp, pitching_ratings_overall_wild_pitch, pitching_ratings_vsr_stuff, pitching_ratings_vsr_movement, pitching_ratings_vsr_hra, pitching_ratings_vsr_pbabip, pitching_ratings_vsr_control, pitching_ratings_vsr_balk, pitching_ratings_vsr_hp, pitching_ratings_vsr_wild_pitch, pitching_ratings_vsl_stuff, pitching_ratings_vsl_movement, pitching_ratings_vsl_hra, pitching_ratings_vsl_pbabip, pitching_ratings_vsl_control, pitching_ratings_vsl_balk, pitching_ratings_vsl_hp, pitching_ratings_vsl_wild_pitch, pitching_ratings_talent_stuff, pitching_ratings_talent_movement, pitching_ratings_talent_hra, pitching_ratings_talent_pbabip, pitching_ratings_talent_control, pitching_ratings_talent_balk, pitching_ratings_talent_hp, pitching_ratings_talent_wild_pitch, pitching_ratings_misc_velocity, pitching_ratings_misc_arm_slot, pitching_ratings_misc_stamina, pitching_ratings_misc_ground_fly, pitching_ratings_misc_hold]) as rating_value
-FROM players_pitching c, (SELECT l."current_date"::date as cdate FROM leagues l LIMIT 1) cd
+FROM players_pitching c, (SELECT l.league_current_date as cdate FROM leagues l LIMIT 1) cd
 WHERE c.player_id IN (SELECT player_id FROM player.player where retired_status IS FALSE)
 ),
 c as (
@@ -973,7 +973,7 @@ SELECT
     UNNEST(ARRAY[1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12]) AS pitch_type_id,
     UNNEST(ARRAY['pr_pitches','pr_pitches','pr_pitches','pr_pitches','pr_pitches','pr_pitches','pr_pitches','pr_pitches','pr_pitches','pr_pitches','pr_pitches','pr_pitches','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent']) as rating_code,
     UNNEST(ARRAY[pitching_ratings_pitches_fastball, pitching_ratings_pitches_slider, pitching_ratings_pitches_curveball, pitching_ratings_pitches_screwball, pitching_ratings_pitches_forkball, pitching_ratings_pitches_changeup, pitching_ratings_pitches_sinker, pitching_ratings_pitches_splitter, pitching_ratings_pitches_knuckleball, pitching_ratings_pitches_cutter, pitching_ratings_pitches_circlechange, pitching_ratings_pitches_knucklecurve, pitching_ratings_pitches_talent_fastball, pitching_ratings_pitches_talent_slider, pitching_ratings_pitches_talent_curveball, pitching_ratings_pitches_talent_screwball, pitching_ratings_pitches_talent_forkball, pitching_ratings_pitches_talent_changeup, pitching_ratings_pitches_talent_sinker, pitching_ratings_pitches_talent_splitter, pitching_ratings_pitches_talent_knuckleball, pitching_ratings_pitches_talent_cutter, pitching_ratings_pitches_talent_circlechange, pitching_ratings_pitches_talent_knucklecurve]) as rating_value
-FROM players_pitching c, (SELECT l."current_date"::date as cdate FROM leagues l LIMIT 1) cd
+FROM players_pitching c, (SELECT l.league_current_date as cdate FROM leagues l LIMIT 1) cd
 WHERE c.player_id IN (SELECT player_id FROM player.player where retired_status IS FALSE)
 ),
 c as (
@@ -1004,7 +1004,7 @@ SELECT
     UNNEST(ARRAY[1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12]) AS pitch_type_id,
     UNNEST(ARRAY['pr_pitches','pr_pitches','pr_pitches','pr_pitches','pr_pitches','pr_pitches','pr_pitches','pr_pitches','pr_pitches','pr_pitches','pr_pitches','pr_pitches','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent','pr_pitches_talent']) as rating_code,
     UNNEST(ARRAY[pitching_ratings_pitches_fastball, pitching_ratings_pitches_slider, pitching_ratings_pitches_curveball, pitching_ratings_pitches_screwball, pitching_ratings_pitches_forkball, pitching_ratings_pitches_changeup, pitching_ratings_pitches_sinker, pitching_ratings_pitches_splitter, pitching_ratings_pitches_knuckleball, pitching_ratings_pitches_cutter, pitching_ratings_pitches_circlechange, pitching_ratings_pitches_knucklecurve, pitching_ratings_pitches_talent_fastball, pitching_ratings_pitches_talent_slider, pitching_ratings_pitches_talent_curveball, pitching_ratings_pitches_talent_screwball, pitching_ratings_pitches_talent_forkball, pitching_ratings_pitches_talent_changeup, pitching_ratings_pitches_talent_sinker, pitching_ratings_pitches_talent_splitter, pitching_ratings_pitches_talent_knuckleball, pitching_ratings_pitches_talent_cutter, pitching_ratings_pitches_talent_circlechange, pitching_ratings_pitches_talent_knucklecurve]) as rating_value
-FROM players_pitching c, (SELECT l."current_date"::date as cdate FROM leagues l LIMIT 1) cd
+FROM players_pitching c, (SELECT l.league_current_date as cdate FROM leagues l LIMIT 1) cd
 WHERE c.player_id IN (SELECT player_id FROM player.player where retired_status IS FALSE)
 ),
 c as (

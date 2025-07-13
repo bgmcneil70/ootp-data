@@ -1,6 +1,6 @@
 create temporary table leagues
 (
-    league_id                              integer,
+    league_id                              integer PRIMARY KEY,
     name                                   text,
     abbr                                   text,
     nation_id                              integer,
@@ -9,8 +9,8 @@ create temporary table leagues
     historical_league                      integer,
     logo_file_name                         text,
     players_path                           text,
-    start_date                             text,
-    preferred_start_date                   text,
+    start_date                             date,
+    preferred_start_date                   date,
     pitcher_award_name                     text,
     mvp_award_name                         text,
     rookie_award_name                      text,
@@ -22,12 +22,12 @@ create temporary table leagues
     arbitration_offering                   integer,
     show_draft_pool                        integer,
     rosters_expanded                       integer,
-    draft_date                             text,
-    rule_5_draft_date                      text,
-    international_fa_date                  text,
-    roster_expand_date                     text,
-    trade_deadline_date                    text,
-    allstar_date                           text,
+    draft_date                             date,
+    rule_5_draft_date                      date,
+    international_fa_date                  date,
+    roster_expand_date                     date,
+    trade_deadline_date                    date,
+    allstar_date                           date,
     days_until_deadline                    integer,
     next_draft_type                        integer,
     parent_league_id                       integer,
@@ -159,7 +159,7 @@ create temporary table leagues
     player_creation_modifier_fielding      double precision,
     financial_coefficient                  double precision,
     world_start_year                       integer,
-    "current_date"                         text,
+    league_current_date                    date,
     background_color_id                    text,
     text_color_id                          text,
     scouting_coach_id                      integer
@@ -169,7 +169,7 @@ create temporary table leagues
 
 create temporary table teams
 (
-    team_id                     integer,
+    team_id                     integer PRIMARY KEY,
     name                        text,
     abbr                        text,
     nickname                    text,
@@ -202,7 +202,7 @@ create temporary table teams
 
 create temporary table players
 (
-    player_id                   integer,
+    player_id                   integer PRIMARY KEY,
     team_id                     integer,
     league_id                   integer,
     position                    integer,
@@ -271,7 +271,7 @@ create temporary table players
     fatigue_played_today        integer,
     college                     integer,
     acquired                    integer,
-    acquired_date               text,
+    acquired_date               date,
     draft_year                  integer,
     draft_round                 integer,
     draft_supplemental          integer,
@@ -476,8 +476,8 @@ SELECT league_id,
        historical_league::boolean,
        logo_file_name,
        players_path,
-       start_date::date,
-       preferred_start_date::date,
+       start_date,
+       preferred_start_date,
        pitcher_award_name,
        mvp_award_name,
        rookie_award_name,
@@ -489,12 +489,12 @@ SELECT league_id,
        arbitration_offering::boolean,
        show_draft_pool::boolean,
        rosters_expanded::boolean,
-       draft_date::date,
-       rule_5_draft_date::date,
-       l.international_fa_date::date ,
-       roster_expand_date::date,
-       trade_deadline_date::date,
-       allstar_date::date,
+       draft_date,
+       rule_5_draft_date,
+       l.international_fa_date ,
+       roster_expand_date,
+       trade_deadline_date,
+       allstar_date,
        days_until_deadline,
        CASE WHEN next_draft_type != 0 THEN next_draft_type END,
        league_id,
@@ -624,7 +624,7 @@ SELECT league_id,
        player_creation_modifier_fielding,
        financial_coefficient,
        world_start_year,
-       "current_date"::date,
+       league_current_date,
        background_color_id,
        text_color_id,
        CASE WHEN scouting_coach_id != -1 then scouting_coach_id END
@@ -932,7 +932,8 @@ create temporary table divisions
     sub_league_id integer,
     division_id   integer,
     name          text,
-    gender        integer
+    gender        integer,
+    PRIMARY KEY (league_id, sub_league_id, division_id)
 );
 
 \copy divisions FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/divisions.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -967,7 +968,8 @@ create temporary table sub_leagues
     name              text,
     abbr              text,
     gender            integer,
-    designated_hitter integer
+    designated_hitter integer,
+    PRIMARY KEY (league_id, sub_league_id)
 );
 
 \copy sub_leagues FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/sub_leagues.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -1029,7 +1031,7 @@ FROM league.division
 
 create temporary table parks
 (
-    park_id                           integer,
+    park_id                           integer PRIMARY KEY,
     dimensions_x                      integer,
     dimensions_y                      integer,
     batter_left_x                     integer,
@@ -1569,12 +1571,12 @@ ON CONFLICT (coach_id) DO NOTHING;
 
 create temporary table coaches
 (
-    coach_id                    integer,
+    coach_id                    integer PRIMARY KEY,
     first_name                  text,
     last_name                   text,
     nick_name                   text,
     age                         integer,
-    date_of_birth               text,
+    date_of_birth               date,
     city_of_birth_id            integer,
     nation_id                   integer,
     weight                      integer,
@@ -1774,7 +1776,7 @@ SELECT
     first_name,
     last_name,
     CASE WHEN nick_name != '' THEN nick_name END,
-    date_of_birth::date,
+    date_of_birth,
     case when city_of_birth_id > 0 then city_of_birth_id end,
     nation_id,
     weight,

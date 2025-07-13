@@ -1,6 +1,6 @@
 create temporary table leagues
 (
-    league_id                              integer,
+    league_id                              integer PRIMARY KEY,
     name                                   text,
     abbr                                   text,
     nation_id                              integer,
@@ -9,8 +9,8 @@ create temporary table leagues
     historical_league                      integer,
     logo_file_name                         text,
     players_path                           text,
-    start_date                             text,
-    preferred_start_date                   text,
+    start_date                             date,
+    preferred_start_date                   date,
     pitcher_award_name                     text,
     mvp_award_name                         text,
     rookie_award_name                      text,
@@ -22,12 +22,12 @@ create temporary table leagues
     arbitration_offering                   integer,
     show_draft_pool                        integer,
     rosters_expanded                       integer,
-    draft_date                             text,
-    rule_5_draft_date                      text,
-    international_fa_date                  text,
-    roster_expand_date                     text,
-    trade_deadline_date                    text,
-    allstar_date                           text,
+    draft_date                             date,
+    rule_5_draft_date                      date,
+    international_fa_date                  date,
+    roster_expand_date                     date,
+    trade_deadline_date                    date,
+    allstar_date                           date,
     days_until_deadline                    integer,
     next_draft_type                        integer,
     parent_league_id                       integer,
@@ -159,7 +159,7 @@ create temporary table leagues
     player_creation_modifier_fielding      double precision,
     financial_coefficient                  double precision,
     world_start_year                       integer,
-    "current_date"                         text,
+    league_current_date                    date,
     background_color_id                    text,
     text_color_id                          text,
     scouting_coach_id                      integer
@@ -169,7 +169,7 @@ create temporary table leagues
 
 create temporary table teams
 (
-    team_id                     integer,
+    team_id                     integer PRIMARY KEY,
     name                        text,
     abbr                        text,
     nickname                    text,
@@ -202,7 +202,7 @@ create temporary table teams
 
 create temporary table players
 (
-    player_id                   integer,
+    player_id                   integer PRIMARY KEY,
     team_id                     integer,
     league_id                   integer,
     position                    integer,
@@ -271,7 +271,7 @@ create temporary table players
     fatigue_played_today        integer,
     college                     integer,
     acquired                    integer,
-    acquired_date               text,
+    acquired_date               date,
     draft_year                  integer,
     draft_round                 integer,
     draft_supplemental          integer,
@@ -328,7 +328,7 @@ ON CONFLICT (coach_id) DO NOTHING;
 
 create temporary table players_batting
 (
-    player_id                           integer,
+    player_id                           integer PRIMARY KEY,
     team_id                             integer,
     league_id                           integer,
     position                            integer,
@@ -471,7 +471,7 @@ ON CONFLICT (player_id) DO UPDATE
 
 create temporary table players_fielding
 (
-    player_id                        integer,
+    player_id                        integer PRIMARY KEY,
     team_id                          integer,
     league_id                        integer,
     position                         integer,
@@ -594,7 +594,7 @@ ON CONFLICT (player_id) DO UPDATE
 
 create temporary table players_value
 (
-    player_id              integer,
+    player_id              integer PRIMARY KEY,
     team_id                integer,
     league_id              integer,
     position               integer,
@@ -744,7 +744,7 @@ ON CONFLICT (player_id) DO UPDATE
 
 create temporary table players_pitching
 (
-    player_id                                    integer,
+    player_id                                    integer PRIMARY KEY,
     team_id                                      integer,
     league_id                                    integer,
     position                                     integer,
@@ -1139,7 +1139,8 @@ create temporary table players_scouted_ratings
     talent                                       integer,
     overall_rating                               integer,
     talent_rating                                integer,
-    scouting_accuracy                            integer
+    scouting_accuracy                            integer,
+    PRIMARY KEY (player_id,team_id,league_id,scouting_team_id)
 );
 
 \copy players_scouted_ratings FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_scouted_ratings.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
@@ -1415,19 +1416,20 @@ talent = EXCLUDED.talent
 create temporary table players_injury_history
 (
     player_id  integer,
-    date       text,
+    date       date,
     length     integer,
     setbacks   integer,
     day_to_day integer,
     effect     integer,
-    body_part  integer
+    body_part  integer,
+    PRIMARY KEY (player_id, date, body_part, effect, length, day_to_day)
 );
 
 \copy players_injury_history FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_injury_history.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO player.player_injury_history (player_id, date, length, setbacks, day_to_day, effect_id, new_body_part_id)
 SELECT DISTINCT player_id,
-       date::date,
+       date,
        length,
        setbacks,
        day_to_day::boolean,
@@ -1465,7 +1467,7 @@ FROM (SELECT DISTINCT
           split_part(history_text,']',2) as history_text
       FROM player_history ph
                JOIN players p on ph.player_id = p.player_id
-               JOIN (select (l."current_date")::date as present_date FROM leagues l LIMIT 1) ll on 1=1
+               JOIN (select l.league_current_date as present_date FROM leagues l LIMIT 1) ll on 1=1
       where ph.history_date != ' Drafted'
         AND to_date(history_date,'yyyymmdd') >= ll.present_date - interval '1 month'
      ) s
