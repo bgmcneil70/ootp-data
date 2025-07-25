@@ -817,7 +817,7 @@ create temporary table players_pitching
 
 DELETE FROM player.player_pitching WHERE player_id NOT IN (SELECT player_id FROM players_pitching);
 
-INSERT INTO player.player_pitching (player_id, team_id, league_id, position_id, role_id, pr_overall_stuff, pr_overall_control, pr_overall_movement, pr_overall_hr_allowed, pr_overall_babip,pr_overall_balk, pr_overall_hp, pr_overall_wild_pitch, pr_vsr_stuff, pr_vsr_control, pr_vsr_movement, pr_vsr_hr_allowed, pr_vsr_babip, pr_vsr_balk, pr_vsr_hp, pr_vsr_wild_pitch, pr_vsl_stuff, pr_vsl_control, pr_vsl_movement, pr_vsl_hr_allowed, pr_vsl_babip, pr_vsl_balk, pr_vsl_hp, pr_vsl_wild_pitch, pr_talent_stuff, pr_talent_control, pr_talent_movement, pr_talent_hr_allowed, pr_talent_babip, pr_talent_balk, pr_talent_hp, pr_talent_wild_pitch, pr_pitches_fastball, pr_pitches_slider, pr_pitches_curve_ball, pr_pitches_screw_ball, pr_pitches_fork_ball, pr_pitches_change_up, pr_pitches_sinker, pr_pitches_splitter, pr_pitches_knuckle_ball, pr_pitches_cutter, pr_pitches_circle_change, pr_pitches_knuckle_curve, pr_pitches_talent_fastball, pr_pitches_talent_slider, pr_pitches_talent_curve_ball, pr_pitches_talent_screwball, pr_pitches_talent_fork_ball, pr_pitches_talent_change_up, pr_pitches_talent_sinker, pr_pitches_talent_splitter, pr_pitches_talent_knuckle_ball, pr_pitches_talent_cutter, pr_pitches_talent_circle_change, pr_pitches_talent_knuckle_curve, velocity_id, arm_slot_id, pr_misc_stamina, pr_misc_ground_fly, pr_misc_hold)
+INSERT INTO player.player_pitching (player_id, team_id, league_id, position_id, role_id, pr_overall_stuff, pr_overall_control, pr_overall_movement, pr_overall_hr_allowed, pr_overall_babip,pr_overall_balk, pr_overall_hp, pr_overall_wild_pitch, pr_vsr_stuff, pr_vsr_control, pr_vsr_movement, pr_vsr_hr_allowed, pr_vsr_babip, pr_vsr_balk, pr_vsr_hp, pr_vsr_wild_pitch, pr_vsl_stuff, pr_vsl_control, pr_vsl_movement, pr_vsl_hr_allowed, pr_vsl_babip, pr_vsl_balk, pr_vsl_hp, pr_vsl_wild_pitch, pr_talent_stuff, pr_talent_control, pr_talent_movement, pr_talent_hr_allowed, pr_talent_babip, pr_talent_balk, pr_talent_hp, pr_talent_wild_pitch, pr_pitches_fastball, pr_pitches_slider, pr_pitches_curve_ball, pr_pitches_screw_ball, pr_pitches_fork_ball, pr_pitches_change_up, pr_pitches_sinker, pr_pitches_splitter, pr_pitches_knuckle_ball, pr_pitches_cutter, pr_pitches_circle_change, pr_pitches_knuckle_curve, pr_pitches_talent_fastball, pr_pitches_talent_slider, pr_pitches_talent_curve_ball, pr_pitches_talent_screwball, pr_pitches_talent_fork_ball, pr_pitches_talent_change_up, pr_pitches_talent_sinker, pr_pitches_talent_splitter, pr_pitches_talent_knuckle_ball, pr_pitches_talent_cutter, pr_pitches_talent_circle_change, pr_pitches_talent_knuckle_curve, velocity_id, velocity_target_id, arm_slot_id, pr_misc_stamina, pr_misc_ground_fly, pr_misc_hold)
 SELECT
     player_id,
     CASE WHEN team_id > 0 THEN team_id END,
@@ -881,6 +881,7 @@ SELECT
     pitching_ratings_pitches_talent_circlechange,
     pitching_ratings_pitches_talent_knucklecurve,
     pitching_ratings_misc_velocity,
+    pitching_ratings_misc_velocity_target,
     pitching_ratings_misc_arm_slot,
     pitching_ratings_misc_stamina,
     pitching_ratings_misc_ground_fly,
@@ -952,6 +953,7 @@ ON CONFLICT (player_id) DO UPDATE
         pr_pitches_talent_circle_change = EXCLUDED.pr_pitches_talent_circle_change ,
         pr_pitches_talent_knuckle_curve = EXCLUDED.pr_pitches_talent_knuckle_curve ,
         velocity_id = EXCLUDED.velocity_id ,
+        velocity_id = EXCLUDED.velocity_target_id ,
         arm_slot_id = EXCLUDED.arm_slot_id ,
         pr_misc_stamina = EXCLUDED.pr_misc_stamina ,
         pr_misc_ground_fly = EXCLUDED.pr_misc_ground_fly ,
@@ -1147,7 +1149,7 @@ create temporary table players_scouted_ratings
 
 DELETE FROM player.player_scouted_ratings WHERE (player_id,scouting_coach_id) NOT IN (SELECT DISTINCT player_id, scouting_coach_id FROM players_scouted_ratings);
 
-INSERT INTO player.player_scouted_ratings(player_id, team_id, league_id, position_id, role_id, scouting_coach_id, scouting_team_id, rr_speed, rr_stealing_rate, rr_stealing, rr_base_running, br_overall_contact, br_overall_gap, br_overall_eye, br_overall_strikeouts, br_overall_hp, br_overall_power, br_overall_babip, br_vsr_contact, br_vsr_gap, br_vsr_eye, br_vsr_strikeouts, br_vsr_hp, br_vsr_power, br_vsr_babip, br_vsl_contact, br_vsl_gap, br_vsl_eye, br_vsl_strikeouts, br_vsl_hp, br_vsl_power, br_vsl_babip, br_talent_contact, br_talent_gap, br_talent_eye, br_talent_strikeouts, br_talent_hp, br_talent_power, br_talent_babip, br_misc_bunt, br_misc_bunt_for_hit, gb_hitter_type_id, fb_hitter_type_id, pr_overall_stuff, pr_overall_movement, pr_overall_hr_allowed, pr_overall_control, pr_overall_babip, pr_overall_balk, pr_overall_hp, pr_overall_wild_pitch, pr_vsr_stuff, pr_vsr_movement, pr_vsr_hr_allowed, pr_vsr_control, pr_vsr_babip, pr_vsr_balk, pr_vsr_hp, pr_vsr_wild_pitch, pr_vsl_stuff, pr_vsl_movement, pr_vsl_hr_allowed, pr_vsl_control, pr_vsl_babip, pr_vsl_balk, pr_vsl_hp, pr_vsl_wild_pitch, pr_talent_stuff, pr_talent_movement, pr_talent_hr_allowed, pr_talent_control, pr_talent_babip, pr_talent_balk, pr_talent_hp, pr_talent_wild_pitch, pr_pitches_fastball, pr_pitches_slider, pr_pitches_curve_ball, pr_pitches_screwball, pr_pitches_fork_ball, pr_pitches_change_up, pr_pitches_sinker, pr_pitches_splitter, pr_pitches_knuckle_ball, pr_pitches_cutter, pr_pitches_circle_change, pr_pitches_knuckle_curve, pr_pitches_talent_fastball, pr_pitches_talent_slider, pr_pitches_talent_curve_ball, pr_pitches_talent_screw_ball, pr_pitches_talent_fork_ball, pr_pitches_talent_change_up, pr_pitches_talent_sinker, pr_pitches_talent_splitter, pr_pitches_talent_knuckle_ball, pr_pitches_talent_cutter, pr_pitches_talent_circle_change, pr_pitches_talent_knuckle_curve, velocity_id, arm_slot_id, pr_misc_stamina, pr_misc_ground_fly, pr_misc_hold, fr_infield_range, fr_infield_arm, fr_turn_double_play, fr_outfield_range, fr_outfield_arm, fr_catcher_arm, fr_catcher_ability, fr_catcher_framing, fr_infield_error, fr_outfield_error, fielding_rating_pos, fielding_potential_pos, overall_rating, talent_rating, scouting_accuracy_id, overall, talent)
+INSERT INTO player.player_scouted_ratings(player_id, team_id, league_id, position_id, role_id, scouting_coach_id, scouting_team_id, rr_speed, rr_stealing_rate, rr_stealing, rr_base_running, br_overall_contact, br_overall_gap, br_overall_eye, br_overall_strikeouts, br_overall_hp, br_overall_power, br_overall_babip, br_vsr_contact, br_vsr_gap, br_vsr_eye, br_vsr_strikeouts, br_vsr_hp, br_vsr_power, br_vsr_babip, br_vsl_contact, br_vsl_gap, br_vsl_eye, br_vsl_strikeouts, br_vsl_hp, br_vsl_power, br_vsl_babip, br_talent_contact, br_talent_gap, br_talent_eye, br_talent_strikeouts, br_talent_hp, br_talent_power, br_talent_babip, br_misc_bunt, br_misc_bunt_for_hit, gb_hitter_type_id, fb_hitter_type_id, pr_overall_stuff, pr_overall_movement, pr_overall_hr_allowed, pr_overall_control, pr_overall_babip, pr_overall_balk, pr_overall_hp, pr_overall_wild_pitch, pr_vsr_stuff, pr_vsr_movement, pr_vsr_hr_allowed, pr_vsr_control, pr_vsr_babip, pr_vsr_balk, pr_vsr_hp, pr_vsr_wild_pitch, pr_vsl_stuff, pr_vsl_movement, pr_vsl_hr_allowed, pr_vsl_control, pr_vsl_babip, pr_vsl_balk, pr_vsl_hp, pr_vsl_wild_pitch, pr_talent_stuff, pr_talent_movement, pr_talent_hr_allowed, pr_talent_control, pr_talent_babip, pr_talent_balk, pr_talent_hp, pr_talent_wild_pitch, pr_pitches_fastball, pr_pitches_slider, pr_pitches_curve_ball, pr_pitches_screwball, pr_pitches_fork_ball, pr_pitches_change_up, pr_pitches_sinker, pr_pitches_splitter, pr_pitches_knuckle_ball, pr_pitches_cutter, pr_pitches_circle_change, pr_pitches_knuckle_curve, pr_pitches_talent_fastball, pr_pitches_talent_slider, pr_pitches_talent_curve_ball, pr_pitches_talent_screw_ball, pr_pitches_talent_fork_ball, pr_pitches_talent_change_up, pr_pitches_talent_sinker, pr_pitches_talent_splitter, pr_pitches_talent_knuckle_ball, pr_pitches_talent_cutter, pr_pitches_talent_circle_change, pr_pitches_talent_knuckle_curve, velocity_id, velocity_target_id, arm_slot_id, pr_misc_stamina, pr_misc_ground_fly, pr_misc_hold, fr_infield_range, fr_infield_arm, fr_turn_double_play, fr_outfield_range, fr_outfield_arm, fr_catcher_arm, fr_catcher_ability, fr_catcher_framing, fr_infield_error, fr_outfield_error, fielding_rating_pos, fielding_potential_pos, overall_rating, talent_rating, scouting_accuracy_id, overall, talent)
 select psr.player_id,
     CASE WHEN psr.team_id >= 0 THEN psr.team_id END ,
     CASE WHEN psr.league_id > 0 THEN psr.league_id END,
@@ -1248,6 +1250,7 @@ select psr.player_id,
     pitching_ratings_pitches_talent_circlechange,
     pitching_ratings_pitches_talent_knucklecurve,
     pitching_ratings_misc_velocity,
+    pitching_ratings_misc_velocity_target,
     pitching_ratings_misc_arm_slot,
     pitching_ratings_misc_stamina,
     pitching_ratings_misc_ground_fly,
@@ -1380,6 +1383,7 @@ pr_pitches_talent_cutter = EXCLUDED.pr_pitches_talent_cutter  ,
 pr_pitches_talent_circle_change = EXCLUDED.pr_pitches_talent_circle_change  ,
 pr_pitches_talent_knuckle_curve = EXCLUDED.pr_pitches_talent_knuckle_curve  ,
 velocity_id = EXCLUDED.velocity_id  ,
+velocity_target_id = EXCLUDED.velocity_target_id  ,
 arm_slot_id = EXCLUDED.arm_slot_id  ,
 pr_misc_stamina = EXCLUDED.pr_misc_stamina  ,
 pr_misc_ground_fly = EXCLUDED.pr_misc_ground_fly  ,

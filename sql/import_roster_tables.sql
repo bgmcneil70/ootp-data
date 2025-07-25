@@ -694,3 +694,11 @@ ON CONFLICT (message_id) DO UPDATE
         cashs = EXCLUDED.cashs,
         modified_ts = now()
     ;
+
+TRUNCATE roster.team_roster;
+\copy roster.team_roster FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_roster.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+
+TRUNCATE roster.team_roster_staff;
+\copy roster.team_roster_staff FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_roster_staff.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+
+
