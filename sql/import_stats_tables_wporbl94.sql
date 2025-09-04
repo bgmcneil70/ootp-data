@@ -165,7 +165,7 @@ create temporary table leagues
     scouting_coach_id                      integer
 );
 
-\copy leagues FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/leagues.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy leagues FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/leagues.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 create temporary table teams
 (
@@ -198,7 +198,7 @@ create temporary table teams
     historical_id               text
 );
 
-\copy teams FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/teams.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy teams FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/teams.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 create temporary table games
 (
@@ -225,7 +225,7 @@ create temporary table games
     starter1        integer
 );
 
-\copy games FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/games.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy games FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/games.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 create temporary table human_manager_history_batting_stats
 (
@@ -275,7 +275,7 @@ create temporary table human_manager_history_batting_stats
 
 );
 
-\copy human_manager_history_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/human_manager_history_batting_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy human_manager_history_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/human_manager_history_batting_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT into stats.human_manager_batting_history(human_manager_id, team_id, season, league_id, sub_league_id, division_id, league_level_id, b_plate_appearance, b_at_bat, b_hit, b_strikeout, b_total_base, b_single, b_double, b_triple, b_home_run, b_stolen_base, b_caught_stealing, b_run_batted_in, b_run, b_walk, b_intentional_walk, b_hit_by_pitch, b_sacrifice_hit, b_sacrifice_fly, b_catcher_interference, b_ground_into_double_play, b_game, b_game_started, b_extra_base_hit, b_pitch_seen, b_run_created, b_woba)
 SELECT c.human_manager_id, team_id, year, c.league_id, sub_league_id, division_id, level_id, pa, ab, h, k, tb, s, d, t, hr, sb, cs, rbi, r, bb, ibb, hp, sh, sf, ci, gdp, g, gs, ebh, pitches_seen, rc, woba
@@ -328,7 +328,7 @@ create temporary table players_individual_batting_stats
     PRIMARY KEY (player_id, opponent_id)
 );
 
-\copy players_individual_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_individual_batting_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy players_individual_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/players_individual_batting_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 MERGE INTO stats.player_individual_batting pib
 USING players_individual_batting_stats s
@@ -390,7 +390,7 @@ create temporary table team_batting_stats
     PRIMARY KEY (team_id, year, league_id, level_id, split_id)
 );
 
-\copy team_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_batting_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy team_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/team_batting_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO stats.team_batting (team_id, season, league_id, league_level_id, b_plate_appearance, b_at_bat, b_hit, b_strikeout, b_total_base, b_single, b_double, b_triple, b_home_run, b_stolen_base, b_caught_stealing, b_run_batted_in, b_run, b_walk, b_intentional_walk, b_hit_by_pitch, b_sacrifice_hit, b_sacrifice_fly, b_catcher_interference, b_ground_into_double_play, b_game, b_game_start, b_run_created)
 SELECT
@@ -502,7 +502,7 @@ create temporary table team_history_batting_stats
     PRIMARY KEY (team_id, year, league_id, level_id, split_id)
 );
 
-\copy team_history_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_history_batting_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy team_history_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/team_history_batting_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO stats.team_batting_history (team_id, season, league_id, sub_league_id, division_id, b_plate_appearance, b_at_bat, b_hit, b_strikeout, b_total_base, b_single, b_double, b_triple, b_home_run, b_stolen_base, b_caught_stealing, b_run_batted_in, b_run, b_walk, b_intentional_walk, b_hit_by_pitch, b_sacrifice_hit, b_sacrifice_fly, b_catcher_interference, b_ground_into_double_play, b_game, b_game_start, b_run_created)
 SELECT
@@ -607,7 +607,7 @@ create temporary table players_career_batting_stats
     war          double precision
 );
 
-\copy players_career_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_career_batting_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy players_career_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/players_career_batting_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO stats.player_batting_season(player_id, season, team_id, league_id, league_level_id, split_id, position_id, b_at_bat, b_hit, b_strikeout, b_plate_appearance, b_pitch, b_game, b_game_start, b_double, b_triple, b_home_run, b_run, b_run_batted_in, b_stolen_base, b_caught_stealing, b_walk, b_intentional_walk, b_ground_into_double_play, b_sacrifice_hit, b_sacrifice_fly, b_hit_by_pitch, b_catcher_interference, b_win_probability_added, stint, b_ubr, b_war)
 SELECT DISTINCT
@@ -790,7 +790,7 @@ create temporary table human_manager_history_fielding_stats
     PRIMARY KEY (human_manager_id, team_id, year, league_id, level_id, split_id)
 );
 
-\copy human_manager_history_fielding_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/human_manager_history_fielding_stats_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy human_manager_history_fielding_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/human_manager_history_fielding_stats_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO stats.human_manager_fielding_history(human_manager_id, team_id, season, league_id, sub_league_id, division_id, league_level_id, f_total_chance, f_assist, f_putout, f_error, f_double_play, f_triple_play, f_passed_ball, f_stolen_base, f_runner_thrown_out, f_earned_run, f_out, f_range)
 SELECT
@@ -871,7 +871,7 @@ create temporary table team_fielding_stats
     PRIMARY KEY (team_id, year, league_id, level_id, split_id, position)
 );
 
-\copy team_fielding_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_fielding_stats_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy team_fielding_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/team_fielding_stats_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO stats.team_fielding(team_id, season, league_id, league_level_id, f_game, f_total_chance, f_assist, f_putout, f_error, f_double_play, f_triple_play, f_passed_ball, f_stolen_base, f_runner_thrown_out, f_earned_run, f_out, f_range)
 SELECT
@@ -949,7 +949,7 @@ create temporary table team_history_fielding_stats
     PRIMARY KEY (team_id, year, league_id, level_id, split_id, position)
 );
 
-\copy team_history_fielding_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_history_fielding_stats_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy team_history_fielding_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/team_history_fielding_stats_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO stats.team_fielding_history(team_id, season, league_id, sub_league_id, division_id, f_game, f_total_chance, f_assist, f_putout, f_error, f_double_play, f_triple_play, f_passed_ball, f_stolen_base, f_runner_thrown_out, f_earned_run, f_out, f_range)
 SELECT
@@ -1040,7 +1040,7 @@ create temporary table players_career_fielding_stats
     zr          double precision
 );
 
-\copy players_career_fielding_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_career_fielding_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy players_career_fielding_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/players_career_fielding_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO stats.player_fielding_season(player_id, season, team_id, league_id, league_level_id, split_id, position_id, stint,f_total_chance, f_assist, f_putout, f_earned_run, f_out, f_game, f_game_start, f_error, f_double_play, f_triple_play, f_passed_ball, f_stolen_base, f_runner_thrown_out, f_play, f_play_base, f_reached_on_error, f_opp, f_opp_made,f_framing,f_arm, f_zone_rating)
 SELECT
@@ -1193,7 +1193,7 @@ create temporary table human_manager_history_pitching_stats
     PRIMARY KEY (human_manager_id, team_id, year, league_id, level_id, split_id)
 );
 
-\copy human_manager_history_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/human_manager_history_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy human_manager_history_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/human_manager_history_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO stats.human_manager_pitching_history (human_manager_id, team_id, season, league_id, sub_league_id, division_id, league_level_id, p_at_bat, p_out, p_batter_faced, p_total_base, p_hit, p_strikeout, p_run_support, p_walk, p_run, p_earned_run, p_ground_ball, p_fly_ball, p_pitch, p_game_start, p_win, p_loss, p_save, p_single, p_double, p_sacrifice_hit, p_sacrifice_fly, p_triple, p_home_run, p_balk, p_catcher_interference, p_intentional_walk, p_wild_pitch, p_hit_by_pitch, p_game_finish, p_double_play, p_quality_start, p_save_opportunity, p_blown_save, p_runner, p_complete_game, p_shutout, p_stolen_base, p_caught_stealing, p_hold, p_babip)
 SELECT
@@ -1372,7 +1372,7 @@ create temporary table team_bullpen_pitching_stats
     PRIMARY KEY (team_id, year, league_id, level_id, split_id)
 );
 
-\copy team_bullpen_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_bullpen_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy team_bullpen_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/team_bullpen_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO stats.team_pitching_bullpen(team_id, season, league_id, league_level_id, p_at_bat, p_out, p_batter_faced, p_total_base, p_hit, p_strikeout, p_run_support, p_walk, p_run, p_earned_run, p_ground_ball, p_fly_ball, p_pitch, p_game, p_game_start, p_win, p_loss, p_save, p_single, p_double, p_sacrifice_hit, p_sacrifice_fly, p_triple, p_home_run, p_balk, p_catcher_interference, p_intentional_walk, p_wild_pitch, p_hit_by_pitch, p_game_finish, p_double_play, p_quality_start, p_save_opportunity, p_blown_save, p_runner, p_complete_game, p_shutout, p_stolen_base, p_caught_stealing, p_hold, p_fip, p_babip)
 SELECT
@@ -1553,7 +1553,7 @@ create temporary table team_history_pitching_stats
     PRIMARY KEY (team_id, year, league_id, level_id, split_id)
 );
 
-\copy team_history_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_history_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy team_history_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/team_history_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO stats.team_pitching_history(team_id, season, league_id, sub_league_id, division_id, p_at_bat, p_out, p_batter_faced, p_total_base, p_hit, p_strikeout, p_run_support, p_walk, p_run, p_earned_run, p_ground_ball, p_fly_ball, p_pitch, p_game, p_game_start, p_win, p_loss, p_save, p_single, p_double, p_sacrifice_hit, p_sacrifice_fly, p_triple, p_home_run, p_balk, p_catcher_interference, p_intentional_walk, p_wild_pitch, p_hit_by_pitch, p_game_finish, p_double_play, p_quality_start, p_save_opportunity, p_blown_save, p_runner, p_complete_game, p_shutout, p_stolen_base, p_caught_stealing, p_hold, p_fip, p_babip)
 SELECT
@@ -1735,7 +1735,7 @@ create temporary table team_pitching_stats
     PRIMARY KEY (team_id, year, league_id, level_id, split_id)
 );
 
-\copy team_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy team_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/team_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO stats.team_pitching(team_id, season, league_id, league_level_id, p_at_bat, p_out, p_batter_faced, p_total_base, p_hit, p_strikeout, p_run_support, p_walk, p_run, p_earned_run, p_ground_ball, p_fly_ball, p_pitch, p_game, p_game_start, p_win, p_loss, p_save, p_single, p_double, p_sacrifice_hit, p_sacrifice_fly, p_triple, p_home_run, p_balk, p_catcher_interference, p_intentional_walk, p_wild_pitch, p_hit_by_pitch, p_game_finish, p_double_play, p_quality_start, p_save_opportunity, p_blown_save, p_runner, p_complete_game, p_shutout, p_stolen_base, p_caught_stealing, p_hold, p_fip, p_babip)
 SELECT
@@ -1914,7 +1914,7 @@ create temporary table team_starting_pitching_stats
     PRIMARY KEY (team_id, year, league_id, level_id, split_id)
 );
 
-\copy team_starting_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_starting_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy team_starting_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/team_starting_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO stats.team_pitching_starting(team_id, season, league_id, league_level_id, p_at_bat, p_out, p_batter_faced, p_total_base, p_hit, p_strikeout, p_run_support, p_walk, p_run, p_earned_run, p_ground_ball, p_fly_ball, p_pitch, p_game, p_game_start, p_win, p_loss, p_save, p_single, p_double, p_sacrifice_hit, p_sacrifice_fly, p_triple, p_home_run, p_balk, p_catcher_interference, p_intentional_walk, p_wild_pitch, p_hit_by_pitch, p_game_finish, p_double_play, p_quality_start, p_save_opportunity, p_blown_save, p_runner, p_complete_game, p_shutout, p_stolen_base, p_caught_stealing, p_hold, p_fip, p_babip)
 SELECT
@@ -2080,7 +2080,7 @@ create temporary table players_career_pitching_stats
     ra9war    double precision
 );
 
-\copy players_career_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_career_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy players_career_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/players_career_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO stats.player_pitching_season(player_id, season, team_id, league_id, league_level_id, split_id, p_out, p_at_bat, p_total_base, p_hit, p_strikeout, p_batter_faced, p_run_support, p_walk, p_run, p_earned_run, p_ground_ball, p_fly_ball, p_pitch, p_game, p_game_start, p_win, p_loss, p_save, p_single, p_double, p_sacrifice_hit, p_sacrifice_fly, p_triple, p_home_run, p_balk, p_catcher_interference, p_intentional_walk, p_wild_pitch, p_hit_by_pitch, p_game_finish, p_double_play, p_quality_start, p_save_opportunity, p_blown_save, p_runner, p_complete_game, p_shutout, p_stolen_base, p_caught_stealing, p_hold, p_inherited_runner, p_inherited_runner_score, p_win_probability_added, p_leverage_index, stint, p_shutdown, p_meltdown, p_war)
 SELECT DISTINCT
@@ -2214,7 +2214,7 @@ create temporary table human_manager_history_record
     PRIMARY KEY (human_manager_id, team_id, year, league_id)
 );
 
-\copy human_manager_history_record FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/human_manager_history_record.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy human_manager_history_record FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/human_manager_history_record.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO stats.human_manager_record_history(human_manager_id, team_id, season, league_id, sub_league_id, division_id, r_game, r_win, r_loss, r_standing_position_division, r_game_behind, r_streak, r_magic_number)
 SELECT
@@ -2263,7 +2263,7 @@ create temporary table players_league_leader
     PRIMARY KEY (player_id, league_id, sub_league_id, year, category, place)
 );
 
-\copy players_league_leader FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_league_leader.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy players_league_leader FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/players_league_leader.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO stats.player_league_leader (player_id, league_id, sub_league_id, season, category_id, place_order, l_amount)
 SELECT
@@ -2293,7 +2293,7 @@ create temporary table team_history_record
     PRIMARY KEY (team_id, year)
 );
 
-\copy team_history_record FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_history_record.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy team_history_record FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/team_history_record.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO stats.team_record_history(team_id, season, league_id, sub_league_id, division_id, t_game, t_win, t_loss, t_standing_position, t_game_behind, t_streak, t_magic_number)
 SELECT
@@ -2331,7 +2331,7 @@ create temporary table team_record
     magic_number integer
 );
 
-\copy team_record FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/team_record.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy team_record FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/team_record.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 DELETE FROM stats.team_record WHERE team_id NOT IN (SELECT team_id from team_record);
 
@@ -2363,7 +2363,7 @@ create temporary table players_streak
     ended     text
 );
 
-\copy players_streak FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_streak.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy players_streak FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/players_streak.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO stats.player_streak(player_id, league_id, streak_id, streak_sequence_id, streak_duration, has_ended_status, streak_value)
 SELECT
@@ -2421,7 +2421,7 @@ create temporary table players_game_batting_stats
     ubr          double precision
 );
 
-\copy players_game_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_game_batting.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy players_game_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/players_game_batting.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 WITH a as (SELECT
     s.player_id,
@@ -2528,7 +2528,7 @@ create temporary table players_game_pitching_stats
     PRIMARY KEY (player_id, game_id)
 );
 
-\copy players_game_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_game_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy players_game_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/players_game_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 WITH a as (
 SELECT
@@ -2629,7 +2629,7 @@ create temporary table players_at_bat_batting_stats
     launch_angle       integer
 );
 
-\copy players_at_bat_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_at_bat_batting_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy players_at_bat_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/players_at_bat_batting_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 WITH a AS (
 SELECT
@@ -3006,12 +3006,13 @@ create temporary table league_history_batting_stats
     babip        double precision
 );
 
-\copy league_history_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/league_history_batting_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy league_history_batting_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/league_history_batting_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+
 
 INSERT INTO stats.league_batting (league_id, sub_league_id, season, league_level_id, b_plate_appearance, b_at_bat, b_hit, b_strikeout, b_total_base, b_single, b_double, b_triple, b_home_run, b_stolen_base, b_caught_stealing, b_run_batted_in, b_run, b_walk, b_intentional_walk, b_hit_by_pitch, b_sacrifice_hit, b_sacrifice_fly, b_catcher_interference, b_ground_into_double_play, b_game, b_game_start, b_run_created, b_batting_average, b_on_base_percent, b_slugging_average, b_run_created_27, b_isolated_power, b_weighted_oba, b_ops, b_stolen_base_pct, b_strikeout_pct, b_walk_pct, b_win_probability_added, b_babip, b_extra_base_hit, b_pitch_seen)
 SELECT
     lhbs.league_id,
-    (SELECT t2.sub_league_id FROM ootp.teams as t2 WHERE t2.team_id = lhbs.team_id) as sub_league_id,
+    row_number() over (partition by lhbs.year,lhbs.league_id) -1,
     lhbs.year,
     lhbs.level_id,
     pa,
@@ -3142,11 +3143,11 @@ create temporary table league_history_fielding_stats
     opps_made_4   integer,
     opps_5        integer,
     opps_made_5   integer,
-    framing       integer,
-    arm           integer
+    framing       float,
+    arm           float
 );
 
-\copy league_history_fielding_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/league_history_fielding_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy league_history_fielding_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/league_history_fielding_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO stats.league_fielding (season, league_id, sub_league_id, league_level_id, f_game, f_game_start, f_total_chance, f_assist, f_putout, f_error, f_double_play, f_triple_play, f_passed_ball, f_stolen_base, f_runner_thrown_out, f_earned_run, f_out, f_range, f_pct, f_rtop, f_cera, f_zone_rating, f_plays, f_plays_base, f_roe, f_efficiency, f_opportunities, f_opportunities_made, f_framing, f_arm)
 SELECT
@@ -3302,6 +3303,172 @@ create temporary table league_history_pitching_stats
     md        integer
 );
 
-\copy league_history_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/league_history_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy league_history_pitching_stats FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/league_history_pitching_stats.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
+INSERT INTO stats.league_pitching (league_id, sub_league_id, league_level_id, season, split_id, p_at_bat, p_out, p_batter_faced, p_total_base, p_hit, p_strikeout, p_run_support, p_walk, p_run, p_earned_run, p_ground_ball, p_fly_ball, p_pitch, p_game, p_game_start, p_win, p_loss, p_save, p_single, p_double, p_sacrifice_hit, p_sacrifice_fly, p_triple, p_home_run, p_balk, p_catcher_interference, p_intentional_walk, p_wild_pitch, p_hit_by_pitch, p_game_finish, p_double_play, p_quality_start, p_save_opportunity, p_blown_save, p_runner, p_complete_game, p_shutout, p_stolen_base, p_caught_stealing, p_hold, p_fip, p_babip, p_run_9, p_batting_average, p_on_base_percent, p_slugging_average, p_ops, p_hit_9, p_steikeout_9, p_strikeout_pct, p_walk_pct, p_strikeout_walk_pct, p_home_run_9, p_walk_9, p_complete_game_pct, p_quality_start_pct, p_win_pct, p_run_support_game, p_save_pct, p_blown_save_pct, p_inherited_runner_score_pct, p_gfp, p_earned_run_average, p_pitch_game, p_ws, p_whip, p_gb_fb_pct, p_kbb_ratio, p_win_probability_added, p_war, p_ra9war, p_shutdown, p_meltdown, p_inherited_runner, p_inherited_runner_scored)
+SELECT
+lhps.league_id,
+row_number() over (partition by lhps.league_id, year, split_id) - 1,
+level_id,
+year,
+split_id,
+ab,
+ip * 3 + ipf,
+bf,
+tb,
+ha,
+k,
+rs,
+bb,
+r,
+er,
+gb,
+fb,
+pi,
+g,
+gs,
+w,
+l,
+s,
+sa,
+da,
+sh,
+sf,
+ta,
+hra,
+bk,
+ci,
+iw,
+wp,
+hp,
+gf,
+dp,
+qs,
+svo,
+bs,
+ra,
+cg,
+sho,
+sb,
+cs,
+hld,
+fip,
+babip,
+r9,
+avg,
+obp,
+slg,
+ops,
+h9,
+k9,
+kp,
+bbp,
+kbbp,
+hr9,
+bb9,
+cgp,
+qsp,
+winp,
+rsg,
+svp,
+bsvp,
+irsp,
+gfp,
+era,
+pig,
+ws,
+whip,
+gbfbp,
+kbb,
+wpa,
+war,
+ra9war,
+sd,
+md,
+ir,
+irs
+FROM
+    league_history_pitching_stats as lhps
+    JOIN leagues as l ON l.league_id = lhps.league_id
+EXCEPT SELECT league_id, sub_league_id, league_level_id, season, split_id, p_at_bat, lp.p_out, p_batter_faced, p_total_base, p_hit, p_strikeout, p_run_support, p_walk, p_run, p_earned_run, p_ground_ball, p_fly_ball, p_pitch, p_game, p_game_start, p_win, p_loss, p_save, p_single, p_double, p_sacrifice_hit, p_sacrifice_fly, p_triple, p_home_run, p_balk, p_catcher_interference, p_intentional_walk, p_wild_pitch, p_hit_by_pitch, p_game_finish, p_double_play, p_quality_start, p_save_opportunity, p_blown_save, p_runner, p_complete_game, p_shutout, p_stolen_base, p_caught_stealing, p_hold, p_fip, p_babip, p_run_9, p_batting_average, p_on_base_percent, p_slugging_average, p_ops, p_hit_9, p_steikeout_9, p_strikeout_pct, p_walk_pct, p_strikeout_walk_pct, p_home_run_9, p_walk_9, p_complete_game_pct, p_quality_start_pct, p_win_pct, p_run_support_game, p_save_pct, p_blown_save_pct, p_inherited_runner_score_pct, p_gfp, p_earned_run_average, p_pitch_game, p_ws, p_whip, p_gb_fb_pct, p_kbb_ratio, p_win_probability_added, p_war, p_ra9war, p_shutdown, p_meltdown, p_inherited_runner, p_inherited_runner_scored
+FROM stats.league_pitching as lp
+ON CONFLICT (league_id, sub_league_id, season, split_id) DO UPDATE
+SET
+league_level_id = excluded.league_level_id,
+p_at_bat= EXCLUDED.p_at_bat ,
+p_out= EXCLUDED.p_out ,
+p_batter_faced= EXCLUDED.p_batter_faced ,
+p_total_base= EXCLUDED.p_total_base ,
+p_hit= EXCLUDED.p_hit ,
+p_strikeout= EXCLUDED.p_strikeout ,
+p_run_support= EXCLUDED.p_run_support ,
+p_walk= EXCLUDED.p_walk ,
+p_run= EXCLUDED.p_run ,
+p_earned_run= EXCLUDED.p_earned_run ,
+p_ground_ball= EXCLUDED.p_ground_ball ,
+p_fly_ball= EXCLUDED.p_fly_ball ,
+p_pitch= EXCLUDED.p_pitch ,
+p_game= EXCLUDED.p_game ,
+p_game_start= EXCLUDED.p_game_start ,
+p_win= EXCLUDED.p_win ,
+p_loss= EXCLUDED.p_loss ,
+p_save= EXCLUDED.p_save ,
+p_single= EXCLUDED.p_single ,
+p_double= EXCLUDED.p_double ,
+p_sacrifice_hit= EXCLUDED.p_sacrifice_hit ,
+p_sacrifice_fly= EXCLUDED.p_sacrifice_fly ,
+p_triple= EXCLUDED.p_triple ,
+p_home_run= EXCLUDED.p_home_run ,
+p_balk= EXCLUDED.p_balk ,
+p_catcher_interference= EXCLUDED.p_catcher_interference ,
+p_intentional_walk= EXCLUDED.p_intentional_walk ,
+p_wild_pitch= EXCLUDED.p_wild_pitch ,
+p_hit_by_pitch= EXCLUDED.p_hit_by_pitch ,
+p_game_finish= EXCLUDED.p_game_finish ,
+p_double_play= EXCLUDED.p_double_play ,
+p_quality_start= EXCLUDED.p_quality_start ,
+p_save_opportunity= EXCLUDED.p_save_opportunity ,
+p_blown_save= EXCLUDED.p_save_opportunity ,
+p_runner= EXCLUDED.p_runner ,
+p_complete_game= EXCLUDED.p_complete_game ,
+p_shutout= EXCLUDED.p_shutout ,
+p_stolen_base= EXCLUDED.p_stolen_base ,
+p_caught_stealing= EXCLUDED.p_caught_stealing ,
+p_hold= EXCLUDED.p_hold ,
+p_fip= EXCLUDED.p_fip ,
+p_babip= EXCLUDED.p_babip ,
+p_run_9= EXCLUDED.p_run_9 ,
+p_batting_average= EXCLUDED.p_batting_average ,
+p_on_base_percent= EXCLUDED.p_on_base_percent ,
+p_slugging_average= EXCLUDED.p_slugging_average ,
+p_ops= EXCLUDED.p_ops ,
+p_hit_9= EXCLUDED.p_hit_9 ,
+p_steikeout_9= EXCLUDED.p_steikeout_9 ,
+p_strikeout_pct= EXCLUDED.p_strikeout_pct ,
+p_walk_pct= EXCLUDED.p_walk_pct ,
+p_strikeout_walk_pct= EXCLUDED.p_strikeout_walk_pct ,
+p_home_run_9= EXCLUDED.p_strikeout_walk_pct ,
+p_walk_9= EXCLUDED.p_walk_9 ,
+p_complete_game_pct= EXCLUDED.p_complete_game_pct ,
+p_quality_start_pct= EXCLUDED.p_quality_start_pct ,
+p_win_pct= EXCLUDED.p_win_pct ,
+p_run_support_game= EXCLUDED.p_run_support_game ,
+p_save_pct= EXCLUDED.p_save_pct ,
+p_blown_save_pct= EXCLUDED.p_blown_save_pct ,
+p_inherited_runner_score_pct= EXCLUDED.p_inherited_runner_score_pct ,
+p_gfp= EXCLUDED.p_gfp ,
+p_earned_run_average= EXCLUDED.p_earned_run_average ,
+p_pitch_game= EXCLUDED.p_pitch_game ,
+p_ws= EXCLUDED.p_ws ,
+p_whip= EXCLUDED.p_whip ,
+p_gb_fb_pct= EXCLUDED.p_gb_fb_pct ,
+p_kbb_ratio= EXCLUDED.p_kbb_ratio ,
+p_win_probability_added= EXCLUDED.p_win_probability_added ,
+p_war= EXCLUDED.p_war ,
+p_ra9war= EXCLUDED.p_ra9war ,
+p_shutdown= EXCLUDED.p_shutdown ,
+p_meltdown= EXCLUDED.p_meltdown ,
+p_inherited_runner= EXCLUDED.p_inherited_runner ,
+p_inherited_runner_scored = EXCLUDED.p_inherited_runner_scored
+;
 

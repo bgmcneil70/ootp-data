@@ -165,7 +165,7 @@ create temporary table leagues
     scouting_coach_id                      integer
 );
 
-\copy leagues FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/leagues.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy leagues FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/leagues.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 create temporary table league_events
 (
@@ -179,7 +179,7 @@ create temporary table league_events
     real_sim_date      integer
 );
 
-\copy league_events FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/league_events.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy league_events FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/league_events.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO league.league_event(league_id, start_date, event_type_id, event_over_status, deleted_status, name_text, needs_human_action_status)
 SELECT
@@ -322,7 +322,7 @@ create temporary table league_playoffs
     winner                   integer
 );
 
-\copy league_playoffs FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/league_playoffs.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy league_playoffs FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/league_playoffs.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO league.league_playoff_season(league_id, season,playoff_mode_id, round, max_round, wild_card_teams, best_of, round_names, split_season_status, all_star_winner_home_field_status, all_star_winner_status, winner_team_id)
 SELECT
@@ -479,7 +479,7 @@ create temporary table league_history
     PRIMARY KEY (league_id, sub_league_id, year)
 );
 
-\copy league_history FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/league_history.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy league_history FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/league_history.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO league.sub_league_season(league_id, sub_league_id, season, best_hitter_id, best_pitcher_id, best_rookie_id, best_manager_id, best_fielder_id)
 SELECT
@@ -514,6 +514,7 @@ ON CONFLICT (league_id, sub_league_id, season) DO UPDATE
         modified_ts = now()
     ;
 
+/*
 create temporary table league_injuries
 (
     injury_id   integer,
@@ -523,7 +524,7 @@ create temporary table league_injuries
     season      integer
 );
 
-\copy league_injuries FROM '/Users/brianmcneil/Documents/Personal/ootp_stuff/ootp_sql/csv/ootp26_migrate/league_injuries.csv' DELIMITER ',' CSV HEADER encoding 'ISO-8859-1';
+\copy league_injuries FROM '/Users/brianmcneil/Documents/Personal/ootp_stuff/ootp_sql/csv/wporbl94/league_injuries.csv' DELIMITER ',' CSV HEADER encoding 'ISO-8859-1';
 
 INSERT INTO league.league_injury (season, league_id, injury_date, team_id, player_id, injury_text, injury_seq_num)
 SELECT
@@ -562,7 +563,7 @@ create temporary table league_news
     season    integer
 );
 
-\copy league_news FROM '/Users/brianmcneil/Documents/Personal/ootp_stuff/ootp_sql/csv/ootp26_migrate/league_news.csv' DELIMITER ',' CSV HEADER encoding 'ISO-8859-1';
+\copy league_news FROM '/Users/brianmcneil/Documents/Personal/ootp_stuff/ootp_sql/csv/wporbl94/league_news.csv' DELIMITER ',' CSV HEADER encoding 'ISO-8859-1';
 
 INSERT INTO league.league_news (season, league_id,news_date, team_id, player_id, news_text, news_seq_num)
 SELECT
@@ -603,7 +604,7 @@ create temporary table league_transactions
     season           integer
 );
 
-\copy league_transactions FROM '/Users/brianmcneil/Documents/Personal/ootp_stuff/ootp_sql/csv/ootp26_migrate/league_transactions.csv' DELIMITER ',' CSV HEADER encoding 'ISO-8859-1';
+\copy league_transactions FROM '/Users/brianmcneil/Documents/Personal/ootp_stuff/ootp_sql/csv/wporbl94/league_transactions.csv' DELIMITER ',' CSV HEADER encoding 'ISO-8859-1';
 
 INSERT INTO league.league_transaction (season, league_id,transaction_date, transaction_text, transaction_type_id)
 SELECT
@@ -675,6 +676,7 @@ EXCEPT SELECT season, league_id,transaction_date, transaction_text, transaction_
 ON CONFLICT (season, league_id, transaction_date, transaction_text) DO UPDATE
 SET transaction_type_id = excluded.transaction_type_id
     ;
+*/
 
 create temporary table league_playoff_fixtures
 (
@@ -690,7 +692,7 @@ create temporary table league_playoff_fixtures
     result1   integer
 );
 
-\copy league_playoff_fixtures FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/league_playoff_fixtures.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy league_playoff_fixtures FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/league_playoff_fixtures.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO league.league_playoff_fixture (season,  league_id, series_id, team_id, winner_id, finished_status, best_of, played_status, round_number, result)
 SELECT
@@ -734,7 +736,7 @@ create temp table league_history_all_star
     PRIMARY KEY (league_id, sub_league_id, year, all_star_pos)
 );
 
-\copy league_history_all_star FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/league_history_all_star.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy league_history_all_star FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/league_history_all_star.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO league.sub_league_all_star_season (league_id, sub_league_id, season, all_star_number, player_id)
 SELECT lhas.league_id, sub_league_id, year, all_star_pos, all_star

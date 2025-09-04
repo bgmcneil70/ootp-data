@@ -165,7 +165,7 @@ create temporary table leagues
     scouting_coach_id                      integer
 );
 
-\copy leagues FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/leagues.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy leagues FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/leagues.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 create temporary table teams
 (
@@ -198,7 +198,7 @@ create temporary table teams
     historical_id               text
 );
 
-\copy teams FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/teams.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy teams FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/teams.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 create temporary table players
 (
@@ -320,7 +320,7 @@ create temporary table players
     loan_team_id                integer
 );
 
-\copy players FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy players FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/players.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 insert into player.coach (coach_id, first_name, last_name)
 values (-1, 'OSA','Scout')
@@ -372,7 +372,7 @@ create temporary table players_batting
     running_ratings_baserunning         integer
 );
 
-\copy players_batting FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_batting.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy players_batting FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/players_batting.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 DELETE FROM player.player_batting WHERE player_id NOT IN (SELECT player_id FROM players_batting);
 
@@ -516,7 +516,7 @@ create temporary table players_fielding
     fielding_rating_pos9_pot         integer
 );
 
-\copy players_fielding FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_fielding.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy players_fielding FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/players_fielding.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 DELETE FROM player.player_fielding WHERE player_id NOT IN (SELECT player_id FROM players_fielding);
 
@@ -641,7 +641,7 @@ create temporary table players_value
     pot_rating             integer
 );
 
-\copy players_value FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_value.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy players_value FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/players_value.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 DELETE FROM player.player_value WHERE player_id NOT IN (SELECT player_id FROM players_value);
 
@@ -813,7 +813,7 @@ create temporary table players_pitching
     pitching_ratings_misc_hold                   integer
 );
 
-\copy players_pitching FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_pitching.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy players_pitching FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/players_pitching.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 DELETE FROM player.player_pitching WHERE player_id NOT IN (SELECT player_id FROM players_pitching);
 
@@ -888,7 +888,7 @@ SELECT
     pitching_ratings_misc_hold
 FROM players_pitching pp
 WHERE pp.player_id IN (SELECT player_id FROM player.player)
-EXCEPT SELECT player_id, team_id, league_id, position_id, role_id, pr_overall_stuff, pr_overall_control, pr_overall_movement, pr_overall_hr_allowed, pr_overall_babip,pr_overall_balk, pr_overall_hp, pr_overall_wild_pitch, pr_vsr_stuff, pr_vsr_control, pr_vsr_movement, pr_vsr_hr_allowed, pr_vsr_babip, pr_vsr_balk, pr_vsr_hp, pr_vsr_wild_pitch, pr_vsl_stuff, pr_vsl_control, pr_vsl_movement, pr_vsl_hr_allowed, pr_vsl_babip, pr_vsl_balk, pr_vsl_hp, pr_vsl_wild_pitch, pr_talent_stuff, pr_talent_control, pr_talent_movement, pr_talent_hr_allowed, pr_talent_babip, pr_talent_balk, pr_talent_hp, pr_talent_wild_pitch, pr_pitches_fastball, pr_pitches_slider, pr_pitches_curve_ball, pr_pitches_screw_ball, pr_pitches_fork_ball, pr_pitches_change_up, pr_pitches_sinker, pr_pitches_splitter, pr_pitches_knuckle_ball, pr_pitches_cutter, pr_pitches_circle_change, pr_pitches_knuckle_curve, pr_pitches_talent_fastball, pr_pitches_talent_slider, pr_pitches_talent_curve_ball, pr_pitches_talent_screwball, pr_pitches_talent_fork_ball, pr_pitches_talent_change_up, pr_pitches_talent_sinker, pr_pitches_talent_splitter, pr_pitches_talent_knuckle_ball, pr_pitches_talent_cutter, pr_pitches_talent_circle_change, pr_pitches_talent_knuckle_curve, velocity_id, arm_slot_id, pr_misc_stamina, pr_misc_ground_fly, pr_misc_hold
+EXCEPT SELECT player_id, team_id, league_id, position_id, role_id, pr_overall_stuff, pr_overall_control, pr_overall_movement, pr_overall_hr_allowed, pr_overall_babip,pr_overall_balk, pr_overall_hp, pr_overall_wild_pitch, pr_vsr_stuff, pr_vsr_control, pr_vsr_movement, pr_vsr_hr_allowed, pr_vsr_babip, pr_vsr_balk, pr_vsr_hp, pr_vsr_wild_pitch, pr_vsl_stuff, pr_vsl_control, pr_vsl_movement, pr_vsl_hr_allowed, pr_vsl_babip, pr_vsl_balk, pr_vsl_hp, pr_vsl_wild_pitch, pr_talent_stuff, pr_talent_control, pr_talent_movement, pr_talent_hr_allowed, pr_talent_babip, pr_talent_balk, pr_talent_hp, pr_talent_wild_pitch, pr_pitches_fastball, pr_pitches_slider, pr_pitches_curve_ball, pr_pitches_screw_ball, pr_pitches_fork_ball, pr_pitches_change_up, pr_pitches_sinker, pr_pitches_splitter, pr_pitches_knuckle_ball, pr_pitches_cutter, pr_pitches_circle_change, pr_pitches_knuckle_curve, pr_pitches_talent_fastball, pr_pitches_talent_slider, pr_pitches_talent_curve_ball, pr_pitches_talent_screwball, pr_pitches_talent_fork_ball, pr_pitches_talent_change_up, pr_pitches_talent_sinker, pr_pitches_talent_splitter, pr_pitches_talent_knuckle_ball, pr_pitches_talent_cutter, pr_pitches_talent_circle_change, pr_pitches_talent_knuckle_curve, velocity_id, velocity_target_id, arm_slot_id, pr_misc_stamina, pr_misc_ground_fly, pr_misc_hold
 FROM player.player_pitching
 ON CONFLICT (player_id) DO UPDATE
     SET
@@ -953,7 +953,7 @@ ON CONFLICT (player_id) DO UPDATE
         pr_pitches_talent_circle_change = EXCLUDED.pr_pitches_talent_circle_change ,
         pr_pitches_talent_knuckle_curve = EXCLUDED.pr_pitches_talent_knuckle_curve ,
         velocity_id = EXCLUDED.velocity_id ,
-        velocity_id = EXCLUDED.velocity_target_id ,
+        velocity_target_id = EXCLUDED.velocity_target_id ,
         arm_slot_id = EXCLUDED.arm_slot_id ,
         pr_misc_stamina = EXCLUDED.pr_misc_stamina ,
         pr_misc_ground_fly = EXCLUDED.pr_misc_ground_fly ,
@@ -977,7 +977,7 @@ create temporary table players_awards
     finish        integer
 );
 
-\copy players_awards FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_awards.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy players_awards FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/players_awards.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO player.player_award_season (player_id, league_id, team_id, sub_league_id, award_id, season, position_id, award_date, finish_order)
 SELECT
@@ -1145,7 +1145,7 @@ create temporary table players_scouted_ratings
     PRIMARY KEY (player_id,team_id,league_id,scouting_team_id)
 );
 
-\copy players_scouted_ratings FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_scouted_ratings.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy players_scouted_ratings FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/players_scouted_ratings.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 DELETE FROM player.player_scouted_ratings WHERE (player_id,scouting_coach_id) NOT IN (SELECT DISTINCT player_id, scouting_coach_id FROM players_scouted_ratings);
 
@@ -1290,7 +1290,7 @@ select psr.player_id,
     psr.overall,
     psr.talent
 FROM players_scouted_ratings psr JOIN players p ON psr.player_id = p.player_id
-EXCEPT SELECT player_id, team_id, league_id, position_id, role_id, scouting_coach_id, scouting_team_id, rr_speed, rr_stealing_rate, rr_stealing, rr_base_running, br_overall_contact, br_overall_gap, br_overall_eye, br_overall_strikeouts, br_overall_hp, br_overall_power, br_overall_babip, br_vsr_contact, br_vsr_gap, br_vsr_eye, br_vsr_strikeouts, br_vsr_hp, br_vsr_power, br_vsr_babip, br_vsl_contact, br_vsl_gap, br_vsl_eye, br_vsl_strikeouts, br_vsl_hp, br_vsl_power, br_vsl_babip, br_talent_contact, br_talent_gap, br_talent_eye, br_talent_strikeouts, br_talent_hp, br_talent_power, br_talent_babip, br_misc_bunt, br_misc_bunt_for_hit, gb_hitter_type_id, fb_hitter_type_id, pr_overall_stuff, pr_overall_movement, pr_overall_hr_allowed, pr_overall_control, pr_overall_babip, pr_overall_balk, pr_overall_hp, pr_overall_wild_pitch, pr_vsr_stuff, pr_vsr_movement, pr_vsr_hr_allowed, pr_vsr_control, pr_vsr_babip, pr_vsr_balk, pr_vsr_hp, pr_vsr_wild_pitch, pr_vsl_stuff, pr_vsl_movement, pr_vsl_hr_allowed, pr_vsl_control, pr_vsl_babip, pr_vsl_balk, pr_vsl_hp, pr_vsl_wild_pitch, pr_talent_stuff, pr_talent_movement, pr_talent_hr_allowed, pr_talent_control, pr_talent_babip, pr_talent_balk, pr_talent_hp, pr_talent_wild_pitch, pr_pitches_fastball, pr_pitches_slider, pr_pitches_curve_ball, pr_pitches_screwball, pr_pitches_fork_ball, pr_pitches_change_up, pr_pitches_sinker, pr_pitches_splitter, pr_pitches_knuckle_ball, pr_pitches_cutter, pr_pitches_circle_change, pr_pitches_knuckle_curve, pr_pitches_talent_fastball, pr_pitches_talent_slider, pr_pitches_talent_curve_ball, pr_pitches_talent_screw_ball, pr_pitches_talent_fork_ball, pr_pitches_talent_change_up, pr_pitches_talent_sinker, pr_pitches_talent_splitter, pr_pitches_talent_knuckle_ball, pr_pitches_talent_cutter, pr_pitches_talent_circle_change, pr_pitches_talent_knuckle_curve, velocity_id, arm_slot_id, pr_misc_stamina, pr_misc_ground_fly, pr_misc_hold, fr_infield_range, fr_infield_arm, fr_turn_double_play, fr_outfield_range, fr_outfield_arm, fr_catcher_arm, fr_catcher_ability, fr_catcher_framing, fr_infield_error, fr_outfield_error, fielding_rating_pos, fielding_potential_pos, overall_rating, talent_rating, scouting_accuracy_id, overall, talent
+EXCEPT SELECT player_id, team_id, league_id, position_id, role_id, scouting_coach_id, scouting_team_id, rr_speed, rr_stealing_rate, rr_stealing, rr_base_running, br_overall_contact, br_overall_gap, br_overall_eye, br_overall_strikeouts, br_overall_hp, br_overall_power, br_overall_babip, br_vsr_contact, br_vsr_gap, br_vsr_eye, br_vsr_strikeouts, br_vsr_hp, br_vsr_power, br_vsr_babip, br_vsl_contact, br_vsl_gap, br_vsl_eye, br_vsl_strikeouts, br_vsl_hp, br_vsl_power, br_vsl_babip, br_talent_contact, br_talent_gap, br_talent_eye, br_talent_strikeouts, br_talent_hp, br_talent_power, br_talent_babip, br_misc_bunt, br_misc_bunt_for_hit, gb_hitter_type_id, fb_hitter_type_id, pr_overall_stuff, pr_overall_movement, pr_overall_hr_allowed, pr_overall_control, pr_overall_babip, pr_overall_balk, pr_overall_hp, pr_overall_wild_pitch, pr_vsr_stuff, pr_vsr_movement, pr_vsr_hr_allowed, pr_vsr_control, pr_vsr_babip, pr_vsr_balk, pr_vsr_hp, pr_vsr_wild_pitch, pr_vsl_stuff, pr_vsl_movement, pr_vsl_hr_allowed, pr_vsl_control, pr_vsl_babip, pr_vsl_balk, pr_vsl_hp, pr_vsl_wild_pitch, pr_talent_stuff, pr_talent_movement, pr_talent_hr_allowed, pr_talent_control, pr_talent_babip, pr_talent_balk, pr_talent_hp, pr_talent_wild_pitch, pr_pitches_fastball, pr_pitches_slider, pr_pitches_curve_ball, pr_pitches_screwball, pr_pitches_fork_ball, pr_pitches_change_up, pr_pitches_sinker, pr_pitches_splitter, pr_pitches_knuckle_ball, pr_pitches_cutter, pr_pitches_circle_change, pr_pitches_knuckle_curve, pr_pitches_talent_fastball, pr_pitches_talent_slider, pr_pitches_talent_curve_ball, pr_pitches_talent_screw_ball, pr_pitches_talent_fork_ball, pr_pitches_talent_change_up, pr_pitches_talent_sinker, pr_pitches_talent_splitter, pr_pitches_talent_knuckle_ball, pr_pitches_talent_cutter, pr_pitches_talent_circle_change, pr_pitches_talent_knuckle_curve, velocity_id, velocity_target_id, arm_slot_id, pr_misc_stamina, pr_misc_ground_fly, pr_misc_hold, fr_infield_range, fr_infield_arm, fr_turn_double_play, fr_outfield_range, fr_outfield_arm, fr_catcher_arm, fr_catcher_ability, fr_catcher_framing, fr_infield_error, fr_outfield_error, fielding_rating_pos, fielding_potential_pos, overall_rating, talent_rating, scouting_accuracy_id, overall, talent
 FROM player.player_scouted_ratings
 ON CONFLICT (player_id, scouting_coach_id, scouting_team_id) DO UPDATE
 SET
@@ -1417,6 +1417,7 @@ overall = EXCLUDED.overall,
 talent = EXCLUDED.talent
 ;
 
+/*
 create temporary table players_injury_history
 (
     player_id  integer,
@@ -1429,7 +1430,7 @@ create temporary table players_injury_history
     PRIMARY KEY (player_id, date, body_part, effect, length, day_to_day)
 );
 
-\copy players_injury_history FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_injury_history.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy players_injury_history FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/players_injury_history.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO player.player_injury_history (player_id, date, length, setbacks, day_to_day, effect_id, new_body_part_id)
 SELECT DISTINCT player_id,
@@ -1456,7 +1457,7 @@ create temporary table player_history
     season       integer
 );
 
-\copy player_history FROM '/Users/brianmcneil/Documents/Personal/ootp_stuff/ootp_sql/csv/ootp26_migrate/player_history.csv' DELIMITER ',' CSV HEADER encoding 'ISO-8859-1';
+\copy player_history FROM '/Users/brianmcneil/Documents/Personal/ootp_stuff/ootp_sql/csv/wporbl94/player_history.csv' DELIMITER ',' CSV HEADER encoding 'ISO-8859-1';
 
 INSERT INTO player.player_note (note_date, player_id, note_type_id, note_text)
 SELECT
@@ -1478,6 +1479,7 @@ FROM (SELECT DISTINCT
 WHERE history_text != ''
 ON CONFLICT (player_id,note_date,note_text) DO NOTHING
 ;
+*/
 
 insert into player.prospect_list (prospect_list_date, league_id)
 select distinct note_date, (SELECT l.league_id FROM league.league l WHERE l.name_abbr = split_part(note_text,' in the ',2)) as league_id
@@ -1509,7 +1511,7 @@ create temporary table players_salary_history
     uniform   text
 );
 
-\copy players_salary_history FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/players_salary_history.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy players_salary_history FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/players_salary_history.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO player.player_salary_history (player_id, team_id, season, salary)
 SELECT player_id,

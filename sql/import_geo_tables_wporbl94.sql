@@ -4,7 +4,7 @@ create temporary table languages
     name        text
 );
 
-\copy languages FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/languages.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy languages FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/languages.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO geo.language (language_id, name_text) SELECT l.language_id, name FROM languages l
 EXCEPT SELECT language_id, name_text FROM geo.language
@@ -23,7 +23,7 @@ create temporary table continents
     main_language_id integer
 );
 
-\copy continents FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/continents.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy continents FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/continents.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO geo.continent (continent_id, name_text, name_abbr, demonym, g_population, main_language_id)
 SELECT c.continent_id, c.name, c.abbreviation, c.demonym, c.population, CASE WHEN c.main_language_id > 0 THEN c.main_language_id END FROM continents c
@@ -56,7 +56,7 @@ create temporary table nations
     this_is_the_usa                 integer
 );
 
-\copy nations FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/nations.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy nations FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/nations.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO geo.nation (nation_id, name_text, short_name, name_abbr, demonym, g_population, gender_id, baseball_quality, continent_id, main_language_id, quality_total, capital_city_id, use_hardcoded_ml_player_origins_status, this_is_the_usa_status)
 SELECT c.nation_id, c.name, c.short_name, c.abbreviation, c.demonym, c.population, c.gender, c.baseball_quality, c.continent_id, c.main_language_id, c.quality_total, c.capital_id, c.use_hardcoded_ml_player_origins::boolean, c.this_is_the_usa::boolean
@@ -90,7 +90,7 @@ create temporary table language_data
     PRIMARY KEY (parent_table, parent_id, language_id)
 );
 
-\copy language_data FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/language_data.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy language_data FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/language_data.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO geo.language_data(parent_table, nation_id, language_id, percentage)
 SELECT ld.parent_table, parent_id, language_id, percentage
@@ -114,7 +114,7 @@ create temporary table states
     main_language_id integer
 );
 
-\copy states FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/states.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy states FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/states.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO geo.state (state_id, nation_id, name_text, name_abbr, g_population, main_language_id)
 SELECT s.state_id, nation_id, name, abbreviation, population, main_language_id
@@ -145,7 +145,7 @@ create temporary table cities
     main_language_id integer
 );
 
-\copy cities FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPOBL-test.lg/import_export/csv/cities.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy cities FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-94.lg/import_export/csv/cities.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 INSERT INTO geo.city (city_id, nation_id, state_id, name_text, name_abbr, latitude, longitude, g_population, main_language_id)
 SELECT c.city_id, nation_id, state_id, name, abbreviation, latitude, longitude, population, main_language_id
