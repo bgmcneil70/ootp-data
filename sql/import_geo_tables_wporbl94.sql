@@ -171,11 +171,62 @@ WHERE capital_city_id IS NOT NULL
 EXCEPT SELECT city_id FROM geo.city
 ;
 
-INSERT INTO geo.school(city_id, school_comp, school_frequency, school_id, latitude, longitude, nation_id, state_id, school_type_id, school_association, school_conference, name_text, nick_name)
-SELECT city_id, school_comp, school_frequency, school_id, latitude, longitude, nation_id, state_id, school_type_id, school_association, school_conference, name_text, nick_name
-FROM ootp.school_xml
+CREATE temporary TABLE my_xml_data (
+    id SERIAL PRIMARY KEY,
+    xml_document XML
+);
+
+INSERT INTO my_xml_data (xml_document) VALUES (XMLPARSE(DOCUMENT convert_from(pg_read_binary_file('/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/database/schools.xml'), 'UTF8')));
+
+WITH a AS (
+SELECT
+    unnest(xpath('/SCHOOLS_FILE/SCHOOL/@id', xml_document))::text::integer AS school_id,
+    unnest(xpath('/SCHOOLS_FILE/SCHOOL/@type', xml_document))::text::INTEGER AS type,
+    unnest(xpath('/SCHOOLS_FILE/SCHOOL/@comp', xml_document))::text::INTEGER AS comp,
+    unnest(xpath('/SCHOOLS_FILE/SCHOOL/@freq', xml_document))::text::INTEGER AS freq,
+    unnest(xpath('/SCHOOLS_FILE/SCHOOL/@lat', xml_document))::text::numeric AS lat,
+    unnest(xpath('/SCHOOLS_FILE/SCHOOL/@lng', xml_document))::text::numeric AS lng,
+    unnest(xpath('/SCHOOLS_FILE/SCHOOL/@cid', xml_document))::text::INTEGER AS cid,
+    unnest(xpath('/SCHOOLS_FILE/SCHOOL/@sid', xml_document))::text::INTEGER AS sid,
+    unnest(xpath('/SCHOOLS_FILE/SCHOOL/@nid', xml_document))::text::INTEGER AS nid,
+    unnest(xpath('/SCHOOLS_FILE/SCHOOL/CITY/text()', xml_document))::text AS city,
+    unnest(xpath('/SCHOOLS_FILE/SCHOOL/STATE_ABBR/text()', xml_document))::text AS state_abbr,
+    unnest(xpath('/SCHOOLS_FILE/SCHOOL/NAME/text()', xml_document))::text AS school_name,
+    unnest(xpath('/SCHOOLS_FILE/SCHOOL/NICK/text()', xml_document))::text AS school_nickname,
+    unnest(xpath('/SCHOOLS_FILE/SCHOOL/ASSO/text()', xml_document))::text AS school_association,
+    unnest(xpath('/SCHOOLS_FILE/SCHOOL/CONF/text()', xml_document))::text AS school_conference
+FROM my_xml_data)
+INSERT INTO geo.school (city_id, school_comp, school_frequency, school_id, latitude, longitude, nation_id, state_id, school_type_id, school_association, school_conference, name_text, nick_name)
+SELECT
+    cid AS city_id,
+    comp as school_comp,
+    freq as school_frequency,
+    school_id,
+    lat as latitude,
+    lng as longitude,
+    nid as nation_id,
+    sid as state_id,
+    type as school_type_id,
+    school_association,
+    school_conference,
+    school_name as name_text,
+    school_nickname AS nick_name
+FROM a
 EXCEPT SELECT city_id, school_comp, school_frequency, school_id, latitude, longitude, nation_id, state_id, school_type_id, school_association, school_conference, name_text, nick_name
 FROM geo.school
-ON CONFLICT (school_id) DO NOTHING ;
-
+ON CONFLICT (school_id) DO UPDATE 
+SET
+city_id = EXCLUDED.city_id ,
+school_comp = EXCLUDED.school_comp ,
+school_frequency = EXCLUDED.school_frequency ,
+latitude = EXCLUDED.latitude ,
+longitude = EXCLUDED.longitude ,
+nation_id = EXCLUDED.nation_id ,
+state_id = EXCLUDED.state_id ,
+school_type_id = EXCLUDED.school_type_id ,
+school_association = EXCLUDED.school_association ,
+school_conference = EXCLUDED.school_conference ,
+name_text = EXCLUDED.name_text ,
+nick_name = EXCLUDED.nick_name
+;
 

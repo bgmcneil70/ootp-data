@@ -24,3 +24,4 @@ psql -h localhost -p 5432 -U postgres -d wporbl94 -f "/Users/brianmcneil/Documen
 #psql -h localhost -p 5432 -U postgres -d wporbl94 -f "/Users/brianmcneil/Documents/Github/ootp-data/sql/import_draft_tables_wporbl94.sql";
 psql -h localhost -p 5432 -U postgres -d wporbl94 -f "/Users/brianmcneil/Documents/Github/ootp-data/sql/import_stats_tables_wporbl94.sql";
 psql -h localhost -p 5432 -U postgres -d wporbl94 -f "/Users/brianmcneil/Documents/Github/ootp-data/sql/import_player_ratings_tables_wporbl94.sql";
+psql -h localhost -p 5432 -U postgres -d wporbl94 -f "/Users/brianmcneil/Documents/Github/ootp-data/sql/import_common_tables_wporbl94.sql";
