@@ -527,9 +527,9 @@ create temporary table team_news
 
 \copy team_news FROM '/Users/brianmcneil/Documents/Personal/ootp_stuff/ootp_sql/csv/wporbl94/team_news.csv' DELIMITER ',' CSV HEADER encoding 'ISO-8859-1';
 
-INSERT INTO team.team_news (season, team_id,news_date, player_id, news_text, news_seq_num)
+INSERT INTO team.team_news (season, team_id,news_date, player_id, news_text, news_id, news_seq_num)
 SELECT
-    l3.season, l3.team_id,l3.news_date, l3.player_id, l3.news_text,row_number() over (partition by season,news_date,l3.team_id)
+    l3.season, l3.team_id,l3.news_date, l3.player_id, l3.news_text,l3.news_id,row_number() over (partition by season,news_date,l3.team_id)
 FROM (
          SELECT
              season,
@@ -539,21 +539,22 @@ FROM (
              news_date,
              CASE WHEN player_id > 0 THEN player_id END as player_id,
              news_text
-         FROM (SELECT season,
-                      news_id,
-                      team_id,
-                      to_date(news_date,'yyyymmdd') as news_date,
+         FROM (SELECT l.season,
+                      l.news_id,
+                      l.team_id,
+                      to_date(l.news_date,'yyyymmdd') as news_date,
                       COALESCE(nullif(split_part(split_part(news_text, 'player_', 2), '.', 1), '')::integer,
                                nullif(split_part(split_part(news_text, 'player#', 2), '>', 1), '')::integer)     as player_id,
                       regexp_replace(trim(regexp_replace(trim(news_text, '  '),
                                                          '<a href="|../teams/team_#?[0-9]+|../players/player_#?[0-9]+|.html">+|</a>', '', 'g'),
                                           '"'), '<|:team#?[0-9]+|:player#?[0-9]+|:manager#?[0-9]+|:coach#?[0-9]+|>','','g')                                                                         as news_text
-               FROM team_news l) l2) l3
+               FROM team_news l
+               ) l2) l3
          JOIN teams t ON l3.team_id = t.team_id
          JOIN league.league l ON l.league_id = t.league_id  and COALESCE(l.season_year,(SELECT season_year FROM league.league ll ORDER BY season_year NULLS LAST LIMIT 1 )) = l3.season
 WHERE news_id = max_news_id
 ON CONFLICT (season,team_id,news_date,news_id) DO NOTHING
-    ;
+;
 
 create temporary table team_transactions
 (

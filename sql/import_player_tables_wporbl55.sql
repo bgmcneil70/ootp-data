@@ -1523,6 +1523,8 @@ WHERE h.salary > 0 AND year > 0
 EXCEPT SELECT player_id, team_id, season, salary
 FROM player.player_salary_history
 ON CONFLICT (player_id, team_id, season) DO UPDATE
-SET salary = excluded.salary
+SET salary = excluded.salary,
+modified_by = CURRENT_USER,
+modified_ts = NOW()
 ;
 

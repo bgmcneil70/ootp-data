@@ -713,4 +713,63 @@ FROM team_roster;
 TRUNCATE roster.team_roster_staff;
 \copy roster.team_roster_staff FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-55.lg/import_export/csv/team_roster_staff.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
+WITH b AS (SELECT trs.team_id,
+                  UNNEST(ARRAY [6,2,1,4,5,3,13,12,14,15])                                                                                                             as occupation_id,
+                  UNNEST(ARRAY [head_scout, manager, general_manager, pitching_coach, hitting_coach, bench_coach, owner, doctor, first_base_coach, third_base_coach]) as coach_id,
+                  l.league_current_date::date,
+                  daterange(l.league_current_date::date,null,'[)')::datemultirange as duration
+           FROM roster.team_roster_staff trs
+            JOIN teams t ON trs.team_id = t.team_id
+            JOIN leagues l ON t.league_id = l.league_id
+),
+c as (
+SELECT b.team_id,
+       duration,
+       occupation_id,
+       coach_id
+FROM b WHERE b.coach_id != 0
+)
+UPDATE roster.team_staff_history crh
+SET duration = crh.duration - c.duration::datemultirange,
+    modified_by = CURRENT_USER,
+    modified_ts = NOW()
+FROM c
+WHERE (c.occupation_id = crh.occupation_id or c.coach_id = crh.coach_id)
+AND c.team_id = crh.team_id
+AND crh.duration @> c.duration
+;
+
+WITH
+b AS (SELECT trs.team_id,
+                  UNNEST(ARRAY [6,2,1,4,5,3,13,12,14,15])                                                                                                             as occupation_id,
+                  UNNEST(ARRAY [head_scout, manager, general_manager, pitching_coach, hitting_coach, bench_coach, owner, doctor, first_base_coach, third_base_coach]) as coach_id,
+                  l.league_current_date::date,
+                  daterange(l.league_current_date::date,null,'[)')::datemultirange as duration
+           FROM roster.team_roster_staff trs
+            JOIN teams t ON trs.team_id = t.team_id
+            JOIN leagues l ON t.league_id = l.league_id
+),
+c as (
+SELECT b.team_id,
+       duration,
+       occupation_id,
+       coach_id
+FROM b WHERE b.coach_id != 0
+)
+INSERT INTO roster.team_staff_history as d (team_id, occupation_id, coach_id, duration)
+SELECT c.team_id, c.occupation_id, c.coach_id, c.duration::datemultirange
+FROM c
+LEFT JOIN roster.team_staff_history as pbrh ON pbrh.coach_id = c.coach_id and pbrh.occupation_id = c.occupation_id and pbrh.team_id = c.team_id
+WHERE pbrh.duration IS NULL OR NOT pbrh.duration @> c.duration
+ON CONFLICT (coach_id, team_id, occupation_id) DO UPDATE
+SET
+    duration = d.duration + excluded.duration,
+    modified_by = CURRENT_USER,
+    modified_ts = NOW()
+;
+
+DELETE FROM roster.team_staff_history crh
+WHERE duration = '{}'
+;
+
 

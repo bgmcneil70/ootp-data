@@ -394,3 +394,92 @@ ON CONFLICT (human_manager_id, team_id, season, league_id, sub_league_id, divisi
         modified_ts = now()
 ;
 
+create temporary table teams
+(
+    team_id                     integer PRIMARY KEY,
+    name                        text,
+    abbr                        text,
+    nickname                    text,
+    logo_file_name              text,
+    city_id                     integer,
+    park_id                     integer,
+    league_id                   integer,
+    sub_league_id               integer,
+    division_id                 integer,
+    nation_id                   integer,
+    parent_team_id              integer,
+    level                       integer,
+    prevent_any_moves           integer,
+    human_team                  integer,
+    human_id                    integer,
+    gender                      integer,
+    background_color_id         text,
+    text_color_id               text,
+    ballcaps_main_color_id      text,
+    ballcaps_visor_color_id     text,
+    jersey_main_color_id        text,
+    jersey_away_color_id        text,
+    jersey_secondary_color_id   text,
+    jersey_pin_stripes_color_id text,
+    allstar_team                integer,
+    historical_id               text
+);
+
+\copy teams FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/wporbl-55.lg/import_export/csv/teams.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+
+WITH b AS (SELECT hm.team_id,
+                  hm.human_manager_id,
+                  l.league_current_date::date,
+                  daterange(l.league_current_date::date,null,'[)')::datemultirange as duration
+           FROM gm.human_manager hm
+            JOIN teams t ON hm.team_id = t.team_id
+            JOIN leagues l ON t.league_id = l.league_id
+),
+c as (
+SELECT b.team_id,
+       b.human_manager_id,
+       duration
+FROM b
+)
+UPDATE gm.human_manager_team_history crh
+SET duration = crh.duration - c.duration::datemultirange,
+    modified_by = CURRENT_USER,
+    modified_ts = NOW()
+FROM c
+WHERE c.human_manager_id = crh.human_manager_id
+AND c.team_id = crh.team_id
+AND crh.duration @> c.duration
+;
+
+WITH
+b AS (SELECT hm.team_id,
+                  hm.human_manager_id,
+                  l.league_current_date::date,
+                  daterange(l.league_current_date::date,null,'[)')::datemultirange as duration
+           FROM gm.human_manager hm
+            JOIN teams t ON hm.team_id = t.team_id
+            JOIN leagues l ON t.league_id = l.league_id
+),
+c as (
+SELECT b.team_id,
+       duration,
+       human_manager_id
+FROM b
+)
+INSERT INTO gm.human_manager_team_history as d (team_id, human_manager_id, duration)
+SELECT c.team_id, c.human_manager_id, c.duration::datemultirange
+FROM c
+LEFT JOIN gm.human_manager_team_history as pbrh ON pbrh.human_manager_id = c.human_manager_id and pbrh.team_id = c.team_id
+WHERE pbrh.duration IS NULL OR NOT pbrh.duration @> c.duration
+ON CONFLICT (human_manager_id, team_id) DO UPDATE
+SET
+    duration = d.duration + excluded.duration,
+    modified_by = CURRENT_USER,
+    modified_ts = NOW()
+;
+
+DELETE FROM roster.team_staff_history crh
+WHERE duration = '{}'
+;
+
+

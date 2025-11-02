@@ -165,7 +165,7 @@ create temporary table leagues
     scouting_coach_id                      integer
 );
 
-\copy leagues FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/WPORBL-55.lg/import_export/csv/leagues.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
+\copy leagues FROM '/Users/brianmcneil/Library/Containers/com.ootpdevelopments.ootp26macqlm/Data/Application Support/Out of the Park Developments/OOTP Baseball 26/saved_games/mlb-take-two.lg/import_export/csv/leagues.csv' DELIMITER ',' NULL AS 'NULL' CSV HEADER encoding 'UTF-8';
 
 
 create temporary table league_rule5_draft_log
@@ -177,7 +177,7 @@ create temporary table league_rule5_draft_log
     season     integer
 );
 
-\copy league_rule5_draft_log FROM '/Users/brianmcneil/Documents/Personal/ootp_stuff/ootp_sql/csv/wporbl55/league_rule5_draft_log.csv' DELIMITER ',' CSV HEADER encoding 'ISO-8859-1';
+\copy league_rule5_draft_log FROM '/Users/brianmcneil/Documents/Personal/ootp_stuff/ootp_sql/csv/mlb-take-two/league_rule5_draft_log.csv' DELIMITER ',' CSV HEADER encoding 'ISO-8859-1';
 
 INSERT INTO draft.league_rule5_draft (season, league_id, round, pick, team_id, player_id, draft_text)
 SELECT
@@ -231,7 +231,7 @@ create temporary table league_draft_log
     season     integer
 );
 
-\copy league_draft_log FROM '/Users/brianmcneil/Documents/Personal/ootp_stuff/ootp_sql/csv/wporbl55/league_draft_log.csv' DELIMITER ',' CSV HEADER encoding 'ISO-8859-1';
+\copy league_draft_log FROM '/Users/brianmcneil/Documents/Personal/ootp_stuff/ootp_sql/csv/mlb-take-two/league_draft_log.csv' DELIMITER ',' CSV HEADER encoding 'ISO-8859-1';
 
 INSERT INTO draft.league_draft (season, league_id, round, supplemental_status,pick, team_id, player_id, draft_text)
 SELECT
@@ -290,7 +290,7 @@ create temporary table league_expansion_draft_log
 );
 
 truncate league_expansion_draft_log;
-\copy league_expansion_draft_log FROM '/Users/brianmcneil/Documents/Personal/ootp_stuff/ootp_sql/csv/wporbl55/league_expansion_draft_log.csv' DELIMITER ',' CSV HEADER encoding 'ISO-8859-1';
+\copy league_expansion_draft_log FROM '/Users/brianmcneil/Documents/Personal/ootp_stuff/ootp_sql/csv/mlb-take-two/league_expansion_draft_log.csv' DELIMITER ',' CSV HEADER encoding 'ISO-8859-1';
 
 INSERT INTO draft.league_expansion_draft (season, league_id, draft_date, round, pick, team_id, player_id, draft_text)
 SELECT
