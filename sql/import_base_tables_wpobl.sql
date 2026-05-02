@@ -1340,6 +1340,16 @@ ON CONFLICT (team_id) DO UPDATE
         modified_ts = now()
     ;
 
+INSERT INTO geo.school (school_id, city_id)
+SELECT distinct school, 1 FROM players p
+WHERE school NOT IN (SELECT school_id FROM geo.school)
+AND school > 0;
+
+INSERT INTO geo.school (school_id, city_id)
+SELECT distinct commit_school, 1 FROM players p
+WHERE commit_school NOT IN (SELECT school_id FROM geo.school)
+and commit_school > 0;
+
 INSERT INTO player.player as p2 (player_id, team_id, league_id, position_id, role_id, first_name, last_name, nick_name, date_of_birth, city_of_birth_id, nation_id, second_nation_id, weight, height, retired_status, free_agent_status, last_league_id, last_team_id, organization_id, last_organization_id, language_id, uniform_number, experience, bats_id, throws_id, personality_greed, personality_loyalty, personality_play_for_winner, personality_work_ethic, personality_intelligence, personality_leader, historical_team_id, best_contract_offer_id, is_injured_status, dtd_injury_status, career_ending_injury_status, injury_il_left, injury_il_playoff_round, injury_left, dtd_injury_effect, dtd_injury_effect_hit, dtd_injury_effect_throw, dtd_injury_effect_run, injury_id, prone_overall, prone_leg, prone_back, prone_arm, fatigue_pitches, fatigue_points, fatigue_played_today,
                           college_status, acquired_id, acquired_date, draft_season, draft_round, draft_supplemental, draft_pick, draft_overall_pick, draft_eligible_status, hsc_status, red_shirt_status, picked_in_draft_status, school_id, commit_school_id, hidden_status, draft_league_id, draft_team_id, turned_coach_status, hall_of_fame_status, rust, inducted_season, strategy_override_team, strategy_stealing, strategy_running, strategy_bunt_for_hit, strategy_sac_bunt, strategy_hit_run, strategy_hook_start,
                           strategy_hook_relief, strategy_pitch_count, strategy_pitch_around, strategy_never_pinch_hit, strategy_defensive_sub, strategy_dtd_sit_min, strategy_dtd_allow_ph, local_popularity_id, national_popularity_id, draft_protected_status,
